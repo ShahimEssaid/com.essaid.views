@@ -1,17 +1,42 @@
 package com.essaid.model;
 
-import com.essaid.model.internalOld.ModelObject;
+import com.essaid.model.internal.map.Request;
 
-public interface Model<E, B, D, S>  {
+import java.util.List;
+import java.util.Map;
 
-    <I extends E> I create(Class<I> iface);
+/**
+ * Represents an instance of a Model, and handles non-model related services.
+ */
+public interface Model {
+
+    String getId();
+
+    Map<String, Entity> getEntities();
+
+    <E extends Entity> E getEntity(String entityId);
+
+    void saveEntity(Entity entity);
+
+    void deleteEntity(Entity entity);
+
+    <T extends Entity> T createEntity(Class<T> entityInterface, String entityId);
+
+    <T extends Element> T createElement(Class<T> elementInterface);
+
+    <E extends Modelled> List<E> createList(Class<E> elementInterface);
+
+    <K, V> Map<K, V> createMap(Class<K> keyType, Class<V> valueType);
 
 
-    Internal<E, B, D, S> internal();
-
-    interface Internal<E, B, D, S> extends Model<E, B, D, S>, ModelObject {
-
-        static final String MODEL_KEY_PREFIX = "model";
-
+    default Internal internal() {
+        return (Internal) this;
     }
+
+    interface Internal extends Model {
+        Object handle(Request request);
+
+        Config getConfig();
+    }
+
 }
