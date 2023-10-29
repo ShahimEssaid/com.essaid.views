@@ -15,7 +15,7 @@ public class SetRequestHandler implements RequestHandler {
 
     @Override
     public Object handleRequest(Request request) {
-        request.getHandler().setFeatureValue(featureName, request.getArgs()[0]);
+        request.getElementHandler().setFeatureValue(featureName, request.getArgs()[0]);
         return null;
     }
 }

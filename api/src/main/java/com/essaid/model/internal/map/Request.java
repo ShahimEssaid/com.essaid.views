@@ -9,5 +9,5 @@ public interface Request {
     Object getProxy();
     Method getMethod();
     Object[] getArgs();
-    ElementHandler getHandler();
+    ElementHandler getElementHandler();
 }

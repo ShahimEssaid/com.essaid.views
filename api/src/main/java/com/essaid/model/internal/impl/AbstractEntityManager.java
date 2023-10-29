@@ -1,10 +1,10 @@
 package com.essaid.model.internal.impl;
 
-import com.essaid.model.Model;
+import com.essaid.model.EntityManager;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
-public abstract class AbstractModel implements Model.Internal {
+public abstract class AbstractEntityManager implements EntityManager.Internal {
     private final String id;
 
 

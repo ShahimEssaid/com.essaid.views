@@ -1,7 +1,7 @@
 package com.essaid.model.internal.map;
 
 import com.essaid.model.Config;
-import com.essaid.model.Model;
+import com.essaid.model.EntityManager;
 import com.essaid.model.Modelled;
 import com.essaid.model.internal.ModelFactory;
 
@@ -16,10 +16,10 @@ public class ModelledProxyFactory implements ModelFactory {
     }
 
     @Override
-    public <T> T create(Class<T> interfaceClass, String instanceId, Model model) {
-        MapElementHandler handler = new MapElementHandler(interfaceClass, model);
+    public <T> T create(Class<T> interfaceClass, String instanceId, EntityManager entityManager) {
+        MapElementHandler handler = new MapElementHandler(interfaceClass, entityManager);
         return (T) Proxy.newProxyInstance(Modelled.class.getClassLoader(),
-                                          model.internal().getConfig().getProxyInterfaces(interfaceClass),
+                                          entityManager.internal().getConfig().getProxyInterfaces(interfaceClass),
                                           handler);
     }
 }

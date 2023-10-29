@@ -8,7 +8,7 @@ import java.util.Map;
 /**
  * Represents an instance of a Model, and handles non-model related services.
  */
-public interface Model {
+public interface EntityManager {
 
     String getId();
 
@@ -33,7 +33,7 @@ public interface Model {
         return (Internal) this;
     }
 
-    interface Internal extends Model {
+    interface Internal extends EntityManager {
         Object handle(Request request);
 
         Config getConfig();

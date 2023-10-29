@@ -1,6 +1,6 @@
 package com.essaid.model.internal.map;
 
-import com.essaid.model.Model;
+import com.essaid.model.EntityManager;
 import com.essaid.model.internal.ElementHandler;
 
 import java.lang.reflect.InvocationHandler;
@@ -11,10 +11,10 @@ import java.util.concurrent.ConcurrentHashMap;
 public class MapElementHandler extends ConcurrentHashMap<Object, Object> implements ElementHandler, InvocationHandler {
 
     private final Class<?> elementInterface;
-    private final Model model;
+    private final EntityManager entityManager;
 
-    public MapElementHandler(Class<?> elementInterface, Model model) {
-        this.model = model;
+    public MapElementHandler(Class<?> elementInterface, EntityManager entityManager) {
+        this.entityManager = entityManager;
         this.elementInterface = elementInterface;
     }
 
@@ -40,7 +40,7 @@ public class MapElementHandler extends ConcurrentHashMap<Object, Object> impleme
     @Override
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
         RequestImpl request = new RequestImpl(proxy, method, args, this);
-        return model.internal().handle(request);
+        return entityManager.internal().handle(request);
     }
 
 }

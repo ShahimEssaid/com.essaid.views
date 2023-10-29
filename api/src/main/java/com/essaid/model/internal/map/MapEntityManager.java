@@ -5,7 +5,7 @@ import com.essaid.model.Element;
 import com.essaid.model.Entity;
 import com.essaid.model.Modelled;
 import com.essaid.model.internal.ModelFactory;
-import com.essaid.model.internal.impl.AbstractModel;
+import com.essaid.model.internal.impl.AbstractEntityManager;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -14,14 +14,14 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 
-public class MapModel extends AbstractModel {
+public class MapEntityManager extends AbstractEntityManager {
     private final Config modelConfig;
     private final Map<Class<?>, ModelFactory> factories = new ConcurrentHashMap<>();
     private final ConcurrentHashMap<Method, RequestHandler> methodHandlers = new ConcurrentHashMap<>();
 
     private Map<String, Entity> entityMap = new ConcurrentHashMap<>();
 
-    public MapModel(String modelId, Config modelConfig) {
+    public MapEntityManager(String modelId, Config modelConfig) {
         super(modelId);
         this.modelConfig = modelConfig;
     }

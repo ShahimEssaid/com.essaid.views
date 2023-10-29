@@ -2,6 +2,7 @@ package com.essaid.model;
 
 import com.essaid.model.internal.ModelFactory;
 import com.essaid.model.internal.map.RequestHandlerFactory;
+import lombok.Getter;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -13,41 +14,37 @@ import java.util.concurrent.CopyOnWriteArrayList;
 public class Config {
     private final Map<Class<?>, Class<?>[]> proxyInterfacesMap = new ConcurrentHashMap<>();
     private final Map<Class<?>, Class<?>> implementations = new ConcurrentHashMap<>();
+    @Getter
     private final CopyOnWriteArrayList<ModelFactory> modelFactories = new CopyOnWriteArrayList<>();
+    @Getter
     private final CopyOnWriteArrayList<RequestHandlerFactory> handlerFactories = new CopyOnWriteArrayList<>();
 
-    public CopyOnWriteArrayList<ModelFactory> getModelFactories() {
-        return modelFactories;
-    }
-
-    public CopyOnWriteArrayList<RequestHandlerFactory> getHandlerFactories() {
-        return handlerFactories;
-    }
-
-     public Config addEntityInterface(Class<? extends Entity> entityInterface,
-                                        List<Class<? extends Entity>> entityDefaults) {
-        entityDefaults = new ArrayList<>(entityDefaults);
-        if (! entityDefaults.contains(entityInterface)){
-            entityDefaults.add(0, entityInterface);
+    public Config addEntityInterface(Class<? extends Entity> entityInterface,
+                                     List<Class<?>> entityDefaults) {
+        List<Class<?>> interfaces = new ArrayList<>(entityDefaults);
+        if (!interfaces.contains(entityInterface)) {
+            interfaces.add(entityInterface);
         }
-        proxyInterfacesMap.put(entityInterface, entityDefaults.toArray(new Class[]{}));
+        proxyInterfacesMap.put(entityInterface, interfaces.toArray(new Class[]{}));
         return this;
     }
 
     public Config addElementInterface(Class<? extends Element> elementInterface,
-                                      Class<? extends Element>... elementDefaults) {
-        Class<? extends Element>[] interfaces = Arrays.copyOf(elementDefaults, elementDefaults.length + 1);
-        interfaces[0] = elementInterface;
-        System.arraycopy(elementDefaults, 0, interfaces, 1, elementDefaults.length);
-        proxyInterfacesMap.put(elementInterface, interfaces);
+                                      List<Class<?>>  elementDefaults) {
+        List<Class<?>> interfaces = new ArrayList<>(elementDefaults);
+        if (!interfaces.contains(elementInterface)) {
+            interfaces.add(elementInterface);
+        }
+        proxyInterfacesMap.put(elementInterface, interfaces.toArray(new Class[]{}));
         return this;
     }
 
-    public Config addSupportInterface(Class<?> supportInterface, Class<?>... supportDefaults) {
-        Class<?>[] interfaces = Arrays.copyOf(supportDefaults, supportDefaults.length + 1);
-        interfaces[0] = supportInterface;
-        System.arraycopy(supportDefaults, 0, interfaces, 1, supportDefaults.length);
-        proxyInterfacesMap.put(supportInterface, interfaces);
+    public Config addSupportInterface(Class<?> supportInterface,List<Class<?>> supportDefaults) {
+        List<Class<?>> interfaces = new ArrayList<>(supportDefaults);
+        if (!interfaces.contains(supportInterface)) {
+            interfaces.add(supportInterface);
+        }
+        proxyInterfacesMap.put(supportInterface, interfaces.toArray(new Class[]{}));
         return this;
     }
 
@@ -75,7 +72,7 @@ public class Config {
         return implementations.get(cls);
     }
 
-    public Class<?>[] getProxyInterfaces(Class<?> cls){
+    public Class<?>[] getProxyInterfaces(Class<?> cls) {
         return proxyInterfacesMap.get(cls);
     }
 }
