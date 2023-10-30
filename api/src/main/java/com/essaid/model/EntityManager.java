@@ -10,19 +10,8 @@ import java.util.Map;
  */
 public interface EntityManager {
 
-    Map<String, Entity> getEntities();
-
-    <E extends Entity> E getEntity(String entityId);
-
-    void saveEntity(Entity entity);
-
-    void deleteEntity(Entity entity);
 
     <T> T create(Class<T> entityInterface);
-
-    <T extends Entity> T createEntity(Class<T> entityInterface, String entityId);
-
-    <T extends Element> T createElement(Class<T> elementInterface);
 
     <E extends Modelled> List<E> createList();
 

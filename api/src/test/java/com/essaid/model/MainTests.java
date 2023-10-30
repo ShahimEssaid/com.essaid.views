@@ -46,11 +46,11 @@ public class MainTests {
     @Test
     @Order(1)
     void test() {
-        car1 = entityManager.createEntity(Car.class, "1");
+        car1 = entityManager.create(Car.class);
         System.out.println("String:" + car1);
         System.out.println("Hash:" + car1.hashCode());
 
-        Car car2 = entityManager.createEntity(Car.class, "2");
+        Car car2 = entityManager.create(Car.class);
 
         assertThat(car1).isEqualTo(car1);
         assertThat(car1).isNotEqualTo(car2);
@@ -93,11 +93,14 @@ public class MainTests {
         assertThat(car1.cgetSpareTire()).isSameAs(spareTire1);
 
         Tire spareTire2 = entityManager.create(Tire.class);
+        spareTire2.setName("2");
         Car car = car1.csetSpareTire(spareTire2);
         assertThat(car).isNotNull();
         assertThat(car).isSameAs(car1);
         assertThat(car1.getSpareTire()).isSameAs(spareTire2);
         assertThat(car1.isHasSpare()).isTrue();
+        assertThat(car1.getSpareTire().getName()).isEqualTo("2");
+
 
 
     }
