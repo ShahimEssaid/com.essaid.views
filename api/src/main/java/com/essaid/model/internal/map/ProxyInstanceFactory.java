@@ -3,16 +3,17 @@ package com.essaid.model.internal.map;
 import com.essaid.model.Config;
 import com.essaid.model.EntityManager;
 import com.essaid.model.Modelled;
-import com.essaid.model.internal.ModelFactory;
+import com.essaid.model.internal.InstanceFactory;
 
 import java.lang.reflect.Proxy;
 
-public class ModelledProxyFactory implements ModelFactory {
+public class ProxyInstanceFactory implements InstanceFactory {
 
 
     @Override
     public boolean canCreate(Class<?> interfaceClass, String instanceId, Config config) {
-        return Modelled.class.isAssignableFrom(interfaceClass);
+        return interfaceClass.isInterface();
+//        return Modelled.class.isAssignableFrom(interfaceClass);
     }
 
     @Override

@@ -31,10 +31,12 @@ public class MapElementHandler extends ConcurrentHashMap<Object, Object> impleme
 
     @Override
     public Object setFeatureValue(String featureName, Object value) {
-        if(Objects.isNull(value)){
-            return  remove(featureName);
-        }
         return put(featureName, value);
+    }
+
+    @Override
+    public Object unsetFeatureValue(String featureName) {
+        return remove(featureName);
     }
 
     @Override
@@ -42,5 +44,7 @@ public class MapElementHandler extends ConcurrentHashMap<Object, Object> impleme
         RequestImpl request = new RequestImpl(proxy, method, args, this);
         return entityManager.internal().handle(request);
     }
+
+
 
 }

@@ -9,9 +9,9 @@ public interface Element extends Modelled {
 
     interface Internal extends Element {
 
-        Element getContainer();
+        Element _getContainer();
 
-        void setContainer(Element container);
+        void _setContainer(Element container);
 
     }
 }

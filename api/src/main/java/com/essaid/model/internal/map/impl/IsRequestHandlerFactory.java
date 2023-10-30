@@ -1,5 +1,6 @@
 package com.essaid.model.internal.map.impl;
 
+import com.essaid.model.EntityManager;
 import com.essaid.model.internal.map.Request;
 import com.essaid.model.internal.map.RequestHandler;
 import com.essaid.model.internal.map.RequestHandlerFactory;
@@ -13,11 +14,11 @@ public class IsRequestHandlerFactory implements RequestHandlerFactory {
 
 
     @Override
-    public RequestHandler getHandler(Method method) {
+    public RequestHandler getHandler(Method method, EntityManager entityManager) {
         if (method.isDefault()) return null;
         RequestHandler handler = null;
         if (method.getName().startsWith("is") && method.getParameterCount() == 0 && method.getReturnType() == boolean.class) {
-            String feature = method.getName().substring(3);
+            String feature = method.getName().substring(2);
             feature = Introspector.decapitalize(feature);
             handler = new IsRequestHandler(feature, method);
         }

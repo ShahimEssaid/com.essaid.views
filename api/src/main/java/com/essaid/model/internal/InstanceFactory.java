@@ -3,7 +3,7 @@ package com.essaid.model.internal;
 import com.essaid.model.Config;
 import com.essaid.model.EntityManager;
 
-public interface ModelFactory {
+public interface InstanceFactory {
 
     boolean canCreate(Class<?> interfaceClass,String instanceId, Config config);
 

@@ -1,5 +1,6 @@
 package com.essaid.model.internal.map.impl;
 
+import com.essaid.model.EntityManager;
 import com.essaid.model.internal.map.Request;
 import com.essaid.model.internal.map.RequestHandler;
 import com.essaid.model.internal.map.RequestHandlerFactory;
@@ -14,7 +15,7 @@ import java.util.List;
 public class AcceptRequestHandlerFactory implements RequestHandlerFactory {
 
     @Override
-    public RequestHandler getHandler(Method method) {
+    public RequestHandler getHandler(Method method, EntityManager entityManager) {
         if (method.isDefault()) return null;
         RequestHandler handler = null;
         if (method.getName().equals("accept") && method.getParameterCount() ==1) {

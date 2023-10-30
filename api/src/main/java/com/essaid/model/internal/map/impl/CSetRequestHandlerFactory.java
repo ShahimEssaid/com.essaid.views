@@ -10,7 +10,7 @@ import lombok.RequiredArgsConstructor;
 import java.beans.Introspector;
 import java.lang.reflect.Method;
 
-public class SetRequestHandlerFactory implements RequestHandlerFactory {
+public class CSetRequestHandlerFactory implements RequestHandlerFactory {
 
 
     @Override
@@ -18,13 +18,13 @@ public class SetRequestHandlerFactory implements RequestHandlerFactory {
         if (method.isDefault()) return null;
         RequestHandler handler = null;
         if (method.getName()
-                  .startsWith("set") && method.getParameterCount() == 1 && method.getReturnType() == void.class) {
-            String feature = method.getName().substring(3);
+                  .startsWith("cset") && method.getParameterCount() == 1 && method.getReturnType() != void.class) {
+            String feature = method.getName().substring(4);
             feature = Introspector.decapitalize(feature);
             if (feature.equals("_id_")) {
-                handler = new Set_id_RequestHandler(feature);
+                handler = new CSet_id_RequestHandler(feature);
             } else {
-                handler = new SetRequestHandler(feature);
+                handler = new CSetRequestHandler(feature);
             }
 
         }
@@ -33,7 +33,7 @@ public class SetRequestHandlerFactory implements RequestHandlerFactory {
 
     @RequiredArgsConstructor
     @Getter
-    public static class SetRequestHandler implements RequestHandler {
+    public static class CSetRequestHandler implements RequestHandler {
         private final String featureName;
 
         @Override
@@ -44,13 +44,13 @@ public class SetRequestHandlerFactory implements RequestHandlerFactory {
             } else {
                 request.getElementHandler().setFeatureValue(featureName, value);
             }
-            return null;
+            return request.getProxy();
         }
     }
 
     @RequiredArgsConstructor
     @Getter
-    public static class Set_id_RequestHandler implements RequestHandler {
+    public static class CSet_id_RequestHandler implements RequestHandler {
         private final String featureName;
 
         @Override
@@ -64,7 +64,7 @@ public class SetRequestHandlerFactory implements RequestHandlerFactory {
                 throw new IllegalStateException("Can't set object's _id_ to null for " + "object:" + request.getProxy());
             }
             request.getElementHandler().setFeatureValue(featureName, value);
-            return null;
+            return request.getProxy();
         }
     }
 }

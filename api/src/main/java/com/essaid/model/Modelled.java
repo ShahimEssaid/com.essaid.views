@@ -13,6 +13,6 @@ public interface Modelled extends ModelObject, Visitable {
     }
 
     default int _hashCode() {
-        return Objects.hashCode(this);
+        return System.identityHashCode(this);
     }
 }

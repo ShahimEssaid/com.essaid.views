@@ -1,5 +1,6 @@
 package com.essaid.model.internal.map.impl;
 
+import com.essaid.model.EntityManager;
 import com.essaid.model.internal.map.Request;
 import com.essaid.model.internal.map.RequestHandler;
 import com.essaid.model.internal.map.RequestHandlerFactory;
@@ -10,7 +11,7 @@ import java.lang.reflect.Method;
 public class DefaultRequestHandlerFactory implements RequestHandlerFactory, RequestHandler {
 
     @Override
-    public RequestHandler getHandler(Method method) {
+    public RequestHandler getHandler(Method method, EntityManager entityManager) {
         if (method.isDefault()) return this;
         return  null;
     }

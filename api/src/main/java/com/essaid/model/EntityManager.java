@@ -10,8 +10,6 @@ import java.util.Map;
  */
 public interface EntityManager {
 
-    String getId();
-
     Map<String, Entity> getEntities();
 
     <E extends Entity> E getEntity(String entityId);
@@ -20,13 +18,15 @@ public interface EntityManager {
 
     void deleteEntity(Entity entity);
 
+    <T> T create(Class<T> entityInterface);
+
     <T extends Entity> T createEntity(Class<T> entityInterface, String entityId);
 
     <T extends Element> T createElement(Class<T> elementInterface);
 
-    <E extends Modelled> List<E> createList(Class<E> elementInterface);
+    <E extends Modelled> List<E> createList();
 
-    <K, V> Map<K, V> createMap(Class<K> keyType, Class<V> valueType);
+    <K, V> Map<K, V> createMap();
 
 
     default Internal internal() {
