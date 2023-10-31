@@ -1,8 +1,8 @@
 package com.essaid.model;
 
-import com.essaid.model.internal.map.MapEntityManager;
-import com.essaid.model.internal.map.ProxyInstanceFactory;
-import com.essaid.model.internal.map.impl.*;
+import com.essaid.model.impl.*;
+import com.essaid.model.map.MapEntityManager;
+import com.essaid.model.map.ProxyInstanceFactory;
 import com.essaid.model.model.Car;
 import com.essaid.model.model.Tire;
 import org.assertj.core.api.Assertions;
@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -28,6 +29,8 @@ public class MainTests {
     static void createModel() {
         config.addEntityInterface(Car.class, List.of());
 
+        config.addInterfaceImplementation(List.class, ArrayList.class);
+
         config.addInstanceFactory(new ProxyInstanceFactory());
 
         config.addHandlerFactory(new DefaultRequestHandlerFactory());
@@ -38,6 +41,7 @@ public class MainTests {
         config.addHandlerFactory(new ObjectRequestHandlerFactory());
         config.addHandlerFactory(new CGetRequestHandlerFactory());
         config.addHandlerFactory(new CSetRequestHandlerFactory());
+        config.addHandlerFactory(new AddRequestHandlerFactory());
         entityManager = new MapEntityManager(config);
 
         Assertions.setMaxStackTraceElementsDisplayed(200);
@@ -100,6 +104,14 @@ public class MainTests {
         assertThat(car1.getSpareTire()).isSameAs(spareTire2);
         assertThat(car1.isHasSpare()).isTrue();
         assertThat(car1.getSpareTire().getName()).isEqualTo("2");
+
+        assertThat(car1.getTireLoadList()).isNull();
+        List<Tire> tires = car1.cgetTireLoadList();
+        assertThat(tires).isNotNull();
+        Tire tire = car1.addTireLoadList();
+        assertThat(tire).isNotNull();
+        assertThat(car1.cgetTireLoadList()).isSameAs(tires);
+        assertThat(car1.getTireLoadList()).hasSize(1);
 
 
 

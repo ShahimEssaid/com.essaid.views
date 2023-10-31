@@ -1,11 +1,10 @@
-package com.essaid.model.internal.map;
+package com.essaid.model.map;
 
 import com.essaid.model.EntityManager;
 import com.essaid.model.internal.ElementHandler;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
-import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class MapElementHandler extends ConcurrentHashMap<Object, Object> implements ElementHandler, InvocationHandler {
@@ -37,6 +36,11 @@ public class MapElementHandler extends ConcurrentHashMap<Object, Object> impleme
     @Override
     public Object unsetFeatureValue(String featureName) {
         return remove(featureName);
+    }
+
+    @Override
+    public EntityManager getEntityManager() {
+        return entityManager;
     }
 
     @Override

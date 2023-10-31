@@ -1,4 +1,4 @@
-package com.essaid.model.internal.impl;
+package com.essaid.model.impl;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Proxy;

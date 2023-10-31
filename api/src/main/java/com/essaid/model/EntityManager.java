@@ -1,6 +1,6 @@
 package com.essaid.model;
 
-import com.essaid.model.internal.map.Request;
+import com.essaid.model.map.Request;
 
 import java.util.List;
 import java.util.Map;
@@ -13,9 +13,9 @@ public interface EntityManager {
 
     <T> T create(Class<T> entityInterface);
 
-    <E extends Modelled> List<E> createList();
-
-    <K, V> Map<K, V> createMap();
+//    <E extends Modelled> List<E> createList();
+//
+//    <K, V> Map<K, V> createMap();
 
 
     default Internal internal() {

@@ -1,7 +1,7 @@
-package com.essaid.model.internal.impl;
+package com.essaid.model.impl;
 
-import com.essaid.model.internal.map.Request;
-import com.essaid.model.internal.map.RequestHandler;
+import com.essaid.model.map.Request;
+import com.essaid.model.map.RequestHandler;
 import lombok.Getter;
 
 import java.beans.Introspector;
@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.WeakHashMap;
 
-@Getter
+
 public abstract class AbstractRequestHandler implements RequestHandler {
 
     private final WeakHashMap<Class<?>, Method> getters = new WeakHashMap<>();
@@ -84,14 +84,16 @@ public abstract class AbstractRequestHandler implements RequestHandler {
     }
 
     private CGetterInfo findCGetterInfo(Request request) {
+        CGetterInfo info = null;
         try {
-            Method cGetter = request.getProxy().getClass().getMethod("cget" + suffix);
-
+            Method clientMethod = request.getElementHandler().getElementType().getMethod(RequestHandler.CGET + suffix);
+            Method cGetter = request.getProxy().getClass().getMethod(RequestHandler.CGET + suffix);
+            info = new CGetterInfo(clientMethod);
         } catch (NoSuchMethodException e) {
             throw new RuntimeException(e);
         }
 
-        return null;
+        return info;
     }
 
     @Getter
@@ -99,10 +101,12 @@ public abstract class AbstractRequestHandler implements RequestHandler {
         private final Method method;
         private final Class<?> returnType;
         private final boolean isList;
+        private final Class<?> listInstanceType;
         private final boolean isMap;
         private final boolean isInstance;
 
         public CGetterInfo(Method cgetterMethod) {
+            String string = toString();
             this.method = cgetterMethod;
             this.returnType = method.getReturnType();
             if (List.class.isAssignableFrom(returnType)) {
@@ -112,16 +116,25 @@ public abstract class AbstractRequestHandler implements RequestHandler {
                 Type genericReturnType = method.getGenericReturnType();
                 if (genericReturnType instanceof ParameterizedType pt) {
                     Type listType = pt.getActualTypeArguments()[0];
-                }
+                    if (listType instanceof Class<?> cls) {
+                        listInstanceType = cls;
 
+                    } else {
+                        throw new IllegalStateException("Method's list's generic type is not a simple Class:" + method);
+                    }
+                } else {
+                    throw new IllegalStateException("Method's List return type is not ParameterizedType:" + method);
+                }
             } else if (Map.class.isAssignableFrom(returnType)) {
                 this.isMap = true;
-                this.isList = true;
+                this.isList = false;
                 this.isInstance = false;
+                listInstanceType = null;
             } else {
                 this.isInstance = true;
-                this.isList = true;
+                this.isList = false;
                 this.isMap = false;
+                listInstanceType = null;
             }
 
 

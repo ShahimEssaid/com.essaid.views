@@ -1,9 +1,9 @@
-package com.essaid.model.internal.map.impl;
+package com.essaid.model.impl;
 
 import com.essaid.model.EntityManager;
-import com.essaid.model.internal.map.Request;
-import com.essaid.model.internal.map.RequestHandler;
-import com.essaid.model.internal.map.RequestHandlerFactory;
+import com.essaid.model.map.Request;
+import com.essaid.model.map.RequestHandler;
+import com.essaid.model.map.RequestHandlerFactory;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;

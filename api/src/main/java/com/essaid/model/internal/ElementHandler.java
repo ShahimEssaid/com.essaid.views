@@ -1,5 +1,7 @@
 package com.essaid.model.internal;
 
+import com.essaid.model.EntityManager;
+
 public interface ElementHandler {
 
     Class<?> getElementType();
@@ -9,5 +11,7 @@ public interface ElementHandler {
     Object setFeatureValue(String featureName, Object value);
 
     Object unsetFeatureValue(String featureName);
+
+    EntityManager getEntityManager();
 
 }

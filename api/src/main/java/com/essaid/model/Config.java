@@ -1,7 +1,7 @@
 package com.essaid.model;
 
 import com.essaid.model.internal.InstanceFactory;
-import com.essaid.model.internal.map.RequestHandlerFactory;
+import com.essaid.model.map.RequestHandlerFactory;
 import lombok.Getter;
 
 import java.util.ArrayList;

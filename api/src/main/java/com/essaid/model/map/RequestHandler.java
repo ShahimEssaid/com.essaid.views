@@ -1,4 +1,4 @@
-package com.essaid.model.internal.map;
+package com.essaid.model.map;
 
 public interface RequestHandler {
 

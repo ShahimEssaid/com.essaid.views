@@ -1,4 +1,4 @@
-package com.essaid.model.internal.map;
+package com.essaid.model.map;
 
 import com.essaid.model.Config;
 import com.essaid.model.EntityManager;
@@ -34,30 +34,41 @@ public class MapEntityManager implements EntityManager.Internal {
 
     @Override
     public <T> T create(Class<T> interfaze) {
+        try {
+            if (List.class.isAssignableFrom(interfaze)) {
+                return (T) modelConfig.getImplementation(List.class).getConstructor().newInstance();
+            } else if (Map.class.isAssignableFrom(interfaze)) {
+                return (T) modelConfig.getImplementation(Map.class).getConstructor().newInstance();
+            }
+        } catch (InstantiationException | NoSuchMethodException | InvocationTargetException |
+                 IllegalAccessException e) {
+            throw new RuntimeException(e);
+        }
+
         InstanceFactory instanceFactory = factories.computeIfAbsent(interfaze, c -> findFactory(c, null));
         return instanceFactory.create(interfaze, null, this);
     }
 
 
-    @Override
-    public <E extends Modelled> List<E> createList() {
-        try {
-            return (List<E>) modelConfig.getImplementation(List.class).getConstructor().newInstance();
-        } catch (InstantiationException | NoSuchMethodException | InvocationTargetException |
-                 IllegalAccessException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    @Override
-    public <K, V> Map<K, V> createMap() {
-        try {
-            return (Map<K, V>) modelConfig.getImplementation(Map.class).getConstructor().newInstance();
-        } catch (InstantiationException | NoSuchMethodException | InvocationTargetException |
-                 IllegalAccessException e) {
-            throw new RuntimeException(e);
-        }
-    }
+//    @Override
+//    public <E extends Modelled> List<E> createList() {
+//        try {
+//            return (List<E>) modelConfig.getImplementation(List.class).getConstructor().newInstance();
+//        } catch (InstantiationException | NoSuchMethodException | InvocationTargetException |
+//                 IllegalAccessException e) {
+//            throw new RuntimeException(e);
+//        }
+//    }
+//
+//    @Override
+//    public <K, V> Map<K, V> createMap() {
+//        try {
+//            return (Map<K, V>) modelConfig.getImplementation(Map.class).getConstructor().newInstance();
+//        } catch (InstantiationException | NoSuchMethodException | InvocationTargetException |
+//                 IllegalAccessException e) {
+//            throw new RuntimeException(e);
+//        }
+//    }
 
 
     @Override

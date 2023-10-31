@@ -1,4 +1,4 @@
-package com.essaid.model.internal.map;
+package com.essaid.model.map;
 
 import com.essaid.model.EntityManager;
 

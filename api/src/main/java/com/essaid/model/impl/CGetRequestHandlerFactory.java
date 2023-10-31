@@ -1,9 +1,9 @@
-package com.essaid.model.internal.map.impl;
+package com.essaid.model.impl;
 
 import com.essaid.model.EntityManager;
-import com.essaid.model.internal.map.Request;
-import com.essaid.model.internal.map.RequestHandler;
-import com.essaid.model.internal.map.RequestHandlerFactory;
+import com.essaid.model.map.Request;
+import com.essaid.model.map.RequestHandler;
+import com.essaid.model.map.RequestHandlerFactory;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
@@ -56,9 +56,9 @@ public class CGetRequestHandlerFactory implements RequestHandlerFactory {
 
             if (value == null) {
                 if (Map.class.isAssignableFrom(returnType)) {
-                    value = entityManager.createMap();
+                    value = entityManager.create(Map.class);
                 } else if (List.class.isAssignableFrom(returnType)) {
-                    value = entityManager.createList();
+                    value = entityManager.create(List.class);
                 } else {
                     value = entityManager.create(returnType);
                 }

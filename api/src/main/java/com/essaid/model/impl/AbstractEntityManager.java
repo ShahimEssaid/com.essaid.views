@@ -1,4 +1,4 @@
-package com.essaid.model.internal.impl;
+package com.essaid.model.impl;
 
 import com.essaid.model.EntityManager;
 import lombok.RequiredArgsConstructor;
