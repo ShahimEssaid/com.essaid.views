@@ -1,120 +1,112 @@
 package com.essaid.model;
 
-import com.essaid.model.impl.*;
-import com.essaid.model.map.MapEntityManager;
-import com.essaid.model.map.ProxyInstanceFactory;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+
 import com.essaid.model.model.Car;
 import com.essaid.model.model.Tire;
+import java.util.List;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
-
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class MainTests {
 
-    static Config config = new Config();
-    static EntityManager entityManager;
-    private Car car1;
+  static EntityManager entityManager;
+  private Car car1;
 
 
-    @BeforeAll
-    static void createModel() {
-        config.addEntityInterface(Car.class, List.of());
+  @BeforeAll
+  static void createModel() {
+    entityManager = Configs.createDefaultMapEntityManager();
+    Assertions.setMaxStackTraceElementsDisplayed(200);
+  }
 
-        config.addInterfaceImplementation(List.class, ArrayList.class);
+  @Test
+  @Order(1)
+  void test() {
+    car1 = entityManager.create(Car.class);
+    System.out.println("String:" + car1);
+    System.out.println("Hash:" + car1.hashCode());
 
-        config.addInstanceFactory(new ProxyInstanceFactory());
+    Car car2 = entityManager.create(Car.class);
 
-        config.addHandlerFactory(new DefaultRequestHandlerFactory());
-        config.addHandlerFactory(new GetRequestHandlerFactory());
-        config.addHandlerFactory(new SetRequestHandlerFactory());
-        config.addHandlerFactory(new IsRequestHandlerFactory());
-        config.addHandlerFactory(new AcceptRequestHandlerFactory());
-        config.addHandlerFactory(new ObjectRequestHandlerFactory());
-        config.addHandlerFactory(new CGetRequestHandlerFactory());
-        config.addHandlerFactory(new CSetRequestHandlerFactory());
-        config.addHandlerFactory(new AddRequestHandlerFactory());
-        entityManager = new MapEntityManager(config);
+    assertThat(car1).isEqualTo(car1);
+    assertThat(car1).isNotEqualTo(car2);
 
-        Assertions.setMaxStackTraceElementsDisplayed(200);
-    }
+    car1.set_id_("someCar");
+    assertThat(car1.get_id_()).isEqualTo("someCar");
+    assertThatThrownBy(() -> {
+      car1.set_id_("another id");
+    }).isInstanceOf(IllegalStateException.class);
 
-    @Test
-    @Order(1)
-    void test() {
-        car1 = entityManager.create(Car.class);
-        System.out.println("String:" + car1);
-        System.out.println("Hash:" + car1.hashCode());
+    assertThat(car1.getByte()).isEqualTo((byte) 0);
+    assertThat(car1.getShort()).isEqualTo((short) 0);
+    assertThat(car1.getInt()).isEqualTo(0);
+    assertThat(car1.getLong()).isEqualTo(0L);
+    assertThat(car1.getFloat()).isEqualTo(0.0f);
+    assertThat(car1.getDouble()).isEqualTo(0.0d);
+    assertThat(car1.getChar()).isEqualTo((char) 0);
+    assertThat(car1.getboolean()).isEqualTo(false);
+    assertThat(car1.isboolean()).isEqualTo(false);
 
-        Car car2 = entityManager.create(Car.class);
-
-        assertThat(car1).isEqualTo(car1);
-        assertThat(car1).isNotEqualTo(car2);
-
-
-        car1.set_id_("someCar");
-        assertThat(car1.get_id_()).isEqualTo("someCar");
-        assertThatThrownBy(() -> {
-            car1.set_id_("another id");
-        }).isInstanceOf(IllegalStateException.class);
+    car1.setColor("yellow");
+    assertThat(car1.getColor()).isEqualTo("yellow");
+    car1.setColor(null);
+    assertThat(car1.getColor()).isNull();
 
 
-        assertThat(car1.getDefaultByte()).isEqualTo((byte) 0);
-        assertThat(car1.getDefaultShort()).isEqualTo((short) 0);
-        assertThat(car1.getDefaultInt()).isEqualTo(0);
-        assertThat(car1.getDefaultLong()).isEqualTo(0L);
-        assertThat(car1.getDefaultFloat()).isEqualTo(0.0f);
-        assertThat(car1.getDefaultDouble()).isEqualTo(0.0d);
-        assertThat(car1.getDefaultChar()).isEqualTo((char) 0);
-        assertThat(car1.getDefautlboolean()).isEqualTo(false);
-        assertThat(car1.isDefautlboolean()).isEqualTo(false);
+    car1.setColor(null);
+    assertThat(car1.getOrDefaultColor("yellow")).isEqualTo("yellow");
+    assertThat(car1.getColor()).isNull();
+    car1.setColor("red");
+    assertThat(car1.getOrDefaultColor("yellow")).isEqualTo("red");
+    car1.setColor(null);
 
 
-        car1.setColor("yellow");
-        assertThat(car1.getColor()).isEqualTo("yellow");
-        car1.setColor(null);
-        assertThat(car1.getColor()).isNull();
-
-        car1.setOwned(true);
-        assertThat(car1.isOwned()).isTrue();
-        car1.setOwned(false);
-        assertThat(car1.isOwned()).isFalse();
-
-        assertThat(car1.getSpareTire()).isNull();
-        assertThat(car1.cgetSpareTire()).isNotNull();
-        assertThat(car1.getSpareTire()).isNotNull();
-        assertThat(car1.cgetSpareTire()).isInstanceOf(Tire.class);
-
-        Tire spareTire1 = car1.getSpareTire();
-        assertThat(car1.cgetSpareTire()).isSameAs(spareTire1);
-
-        Tire spareTire2 = entityManager.create(Tire.class);
-        spareTire2.setName("2");
-        Car car = car1.csetSpareTire(spareTire2);
-        assertThat(car).isNotNull();
-        assertThat(car).isSameAs(car1);
-        assertThat(car1.getSpareTire()).isSameAs(spareTire2);
-        assertThat(car1.isHasSpare()).isTrue();
-        assertThat(car1.getSpareTire().getName()).isEqualTo("2");
-
-        assertThat(car1.getTireLoadList()).isNull();
-        List<Tire> tires = car1.cgetTireLoadList();
-        assertThat(tires).isNotNull();
-        Tire tire = car1.addTireLoadList();
-        assertThat(tire).isNotNull();
-        assertThat(car1.cgetTireLoadList()).isSameAs(tires);
-        assertThat(car1.getTireLoadList()).hasSize(1);
+    car1.setColor(null);
+    assertThat(car1.getOrSetColor("yellow")).isEqualTo("yellow");
+    assertThat(car1.getColor()).isEqualTo("yellow");
+    car1.setColor("red");
+    assertThat(car1.getOrSetColor("yellow")).isEqualTo("red");
+    car1.setColor(null);
 
 
 
-    }
+    car1.setOwned(true);
+    assertThat(car1.isOwned()).isTrue();
+    car1.setOwned(false);
+    assertThat(car1.isOwned()).isFalse();
+
+    assertThat(car1.getSpareTire()).isNull();
+    assertThat(car1.cgetSpareTire()).isNotNull();
+    assertThat(car1.getSpareTire()).isNotNull();
+    assertThat(car1.cgetSpareTire()).isInstanceOf(Tire.class);
+
+    Tire spareTire1 = car1.getSpareTire();
+    assertThat(car1.cgetSpareTire()).isSameAs(spareTire1);
+
+    Tire spareTire2 = entityManager.create(Tire.class);
+    spareTire2.setName("2");
+    Car car = car1.csetSpareTire(spareTire2);
+    assertThat(car).isNotNull();
+    assertThat(car).isSameAs(car1);
+    assertThat(car1.getSpareTire()).isSameAs(spareTire2);
+    assertThat(car1.isHasSpare()).isTrue();
+    assertThat(car1.getSpareTire().getName()).isEqualTo("2");
+
+    assertThat(car1.getTireLoadList()).isNull();
+    List<Tire> tires = car1.cgetTireLoadList();
+    assertThat(tires).isNotNull();
+    Tire tire = car1.addTireLoadList();
+    assertThat(tire).isNotNull();
+    assertThat(car1.cgetTireLoadList()).isSameAs(tires);
+    assertThat(car1.getTireLoadList()).hasSize(1);
+
+
+  }
 
 }

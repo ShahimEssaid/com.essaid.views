@@ -59,7 +59,7 @@ public class GetRequestHandlerFactory implements RequestHandlerFactory {
         @Override
         public Object handleRequest(Request request) {
             Object value = request.getElementHandler().getFeatureValue(featureName);
-            if (value == null && defaultValue != null) {
+            if (value == null) {
                 return defaultValue;
             }
             return value;

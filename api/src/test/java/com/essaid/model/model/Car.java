@@ -9,17 +9,19 @@ public interface Car extends Vehicle, Identifiable {
 
     //@formatter:off
     // check defaults for primitives that do not have an actual value.
-    byte getDefaultByte();
-    short getDefaultShort();
-    int getDefaultInt();
-    long getDefaultLong();
-    float getDefaultFloat();
-    double getDefaultDouble();
-    char getDefaultChar();
-    boolean getDefautlboolean();
-    boolean isDefautlboolean();
+    byte getByte();
+    short getShort();
+    int getInt();
+    long getLong();
+    float getFloat();
+    double getDouble();
+    char getChar();
+    boolean getboolean();
+    boolean isboolean();
 
     String getColor();
+    String getOrDefaultColor(String defaultValue);
+    String getOrSetColor(String setValue);
     void setColor(String color);
 
     void setOwned(boolean owned);

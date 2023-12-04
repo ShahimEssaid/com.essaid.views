@@ -86,7 +86,6 @@ public class MapEntityManager implements EntityManager.Internal {
     }
 
     private RequestHandler findRequestHandler(Method method) {
-        RequestHandler handler = null;
         return modelConfig.getHandlerFactories()
                           .stream()
                           .map(requestHandlerFactory -> requestHandlerFactory.getHandler(method, MapEntityManager.this))
