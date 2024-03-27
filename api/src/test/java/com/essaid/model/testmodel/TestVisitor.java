@@ -1,8 +1,6 @@
-package com.essaid.model.model;
+package com.essaid.model.testmodel;
 
 import com.essaid.model.Visitor;
-
-import java.util.Objects;
 
 public class TestVisitor implements Visitor {
 

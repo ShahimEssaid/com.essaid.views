@@ -1,4 +1,4 @@
-package com.essaid.model.model;
+package com.essaid.model.testmodel;
 
 import com.essaid.model.Entity;
 

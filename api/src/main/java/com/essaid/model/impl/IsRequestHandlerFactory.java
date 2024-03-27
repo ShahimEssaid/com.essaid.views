@@ -1,41 +1,44 @@
 package com.essaid.model.impl;
 
-import com.essaid.model.EntityManager;
-import com.essaid.model.map.Request;
-import com.essaid.model.map.RequestHandler;
-import com.essaid.model.map.RequestHandlerFactory;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-
-import java.beans.Introspector;
+import com.essaid.model.ModelManager;
+import com.essaid.model.impl.map.ModelObjectHandler;
+import com.essaid.model.internal.RequestHandler;
+import com.essaid.model.internal.RequestHandlerFactory;
+import com.essaid.model.internal.RequestType;
 import java.lang.reflect.Method;
 
 public class IsRequestHandlerFactory implements RequestHandlerFactory {
 
 
+  @Override
+  public RequestHandler getHandler(String featureName, Method method,
+      RequestType requestType, ModelManager modelManager) {
+    if (!requestType.equals(RequestType.IS) ||
+        method.isDefault()) {
+      return null;
+    }
+    RequestHandler handler = new IsRequestHandler(featureName, method, requestType, false,
+        modelManager);
+
+    return handler;
+  }
+
+  public static class IsRequestHandler extends AbstractRequestHandler {
+
+    public IsRequestHandler(String featureName, Method method, RequestType requestType,
+        Object defaultValue, ModelManager modelManager) {
+      super(featureName, method, requestType, defaultValue, modelManager);
+    }
+
     @Override
-    public RequestHandler getHandler(Method method, EntityManager entityManager) {
-        if (method.isDefault()) return null;
-        RequestHandler handler = null;
-        if (method.getName().startsWith("is") && method.getParameterCount() == 0 && method.getReturnType() == boolean.class) {
-            String feature = method.getName().substring(2);
-            feature = Introspector.decapitalize(feature);
-            handler = new IsRequestHandler(feature, method);
-        }
-        return handler;
+    public Object handle(Object proxy, Method method, Object[] args,
+        ModelObjectHandler objectHandler) {
+      Object featureValue = objectHandler.getFeatureValue(featureName);
+      if (featureValue == null) {
+        return false;
+      }
+      return featureValue;
     }
 
-    @RequiredArgsConstructor
-    @Getter
-    public static class IsRequestHandler implements RequestHandler {
-        private final String featureName;
-        private final Method method;
-
-        @Override
-        public Object handleRequest(Request request) {
-            Object value = request.getElementHandler().getFeatureValue(featureName);
-            if(value == null) return false;
-            return value;
-        }
-    }
+  }
 }

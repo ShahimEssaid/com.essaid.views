@@ -1,11 +1,18 @@
 package com.essaid.model.internal;
 
 import com.essaid.model.Config;
-import com.essaid.model.EntityManager;
+import com.essaid.model.ModelManager;
+import com.essaid.model.impl.ImplUtils;
 
 public interface InstanceFactory {
 
-    boolean canCreate(Class<?> interfaceClass,String instanceId, Config config);
+    boolean canCreate(Class<?> interfaceClass,String instanceId, ModelManager modelManager);
 
-    <T> T create(Class<T> interfaceClass,String instanceId, EntityManager entityManager);
+    default  <T> T create(Class<T> objectType,String instanceId, ModelManager modelManager){
+        return create(objectType, instanceId, modelManager, ImplUtils.EMPTY_DEFAULTS);
+    }
+    <T> T create(Class<T> objectType, String instanceId, ModelManager modelManager, Class<?>... interfaces);
+
+
+
 }

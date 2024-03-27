@@ -1,4 +1,6 @@
 package com.essaid.model;
 
-public interface Mixin extends ModelObject{
+import com.essaid.model.internal.ModelObject;
+
+public interface Mixin extends ModelObject {
 }

@@ -7,22 +7,27 @@ import com.essaid.model.internal.RequestHandlerFactory;
 import com.essaid.model.internal.RequestType;
 import java.lang.reflect.Method;
 
-public class SetRequestHandlerFactory implements RequestHandlerFactory {
+public class SetAndChainRequestHandlerFactory implements RequestHandlerFactory {
 
 
   @Override
   public RequestHandler getHandler(String featureName, Method method,
       RequestType requestType, ModelManager modelManager) {
-    if (!requestType.equals(RequestType.SET) ||
+
+    if (!requestType.equals(RequestType.SET_AND_CHAIN) ||
         method.isDefault()) {
       return null;
     }
-    return new SetRequestHandler(featureName, method, requestType, modelManager);
+
+    RequestHandler handler = new SetAndChainRequestHandler(featureName, method, requestType,
+        modelManager);
+
+    return handler;
   }
 
-  public static class SetRequestHandler extends AbstractRequestHandler {
+  public static class SetAndChainRequestHandler extends AbstractRequestHandler {
 
-    public SetRequestHandler(String featureName, Method method, RequestType requestType,
+    public SetAndChainRequestHandler(String featureName, Method method, RequestType requestType,
         ModelManager modelManager) {
       super(featureName, method, requestType, null, modelManager);
     }
@@ -30,12 +35,13 @@ public class SetRequestHandlerFactory implements RequestHandlerFactory {
     @Override
     public Object handle(Object proxy, Method method, Object[] args,
         ModelObjectHandler objectHandler) {
-      Object value = args[0];
-      if (value == null) {
-        return objectHandler.unsetFeatureValue(featureName);
+      Object newValue = args[0];
+      if (newValue == null) {
+        objectHandler.unsetFeatureValue(featureName);
       } else {
-        return objectHandler.setFeatureValue(featureName, value);
+        objectHandler.setFeatureValue(featureName, newValue);
       }
+      return proxy;
     }
   }
 

@@ -1,17 +1,16 @@
 package com.essaid.model;
 
-public interface Element extends Modelled {
+import com.essaid.model.Element.InternalElement;
+import com.essaid.model.internal.Instantiable;
 
+public interface Element extends Instantiable<InternalElement> {
 
-    default Internal internal() {
-        return (Internal) this;
-    }
+  interface InternalElement extends Element,
+      InternalInstantiable<InternalElement>{
 
-    interface Internal extends Element {
+    Element _getContainer();
 
-        Element _getContainer();
+    void _setContainer(Element container);
 
-        void _setContainer(Element container);
-
-    }
+  }
 }

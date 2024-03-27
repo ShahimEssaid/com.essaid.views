@@ -1,4 +1,4 @@
-package com.essaid.model;
+package com.essaid.model.internal;
 
 public interface EqualsToStringHashCodeDefaults {
 

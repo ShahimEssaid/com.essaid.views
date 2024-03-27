@@ -1,74 +1,43 @@
 package com.essaid.model.impl;
 
-import com.essaid.model.EntityManager;
-import com.essaid.model.map.Request;
-import com.essaid.model.map.RequestHandler;
-import com.essaid.model.map.RequestHandlerFactory;
-import java.beans.Introspector;
+import com.essaid.model.ModelManager;
+import com.essaid.model.impl.map.ModelObjectHandler;
+import com.essaid.model.internal.RequestHandler;
+import com.essaid.model.internal.RequestHandlerFactory;
+import com.essaid.model.internal.RequestType;
 import java.lang.reflect.Method;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 
 public class GetOrDefaultRequestHandlerFactory implements RequestHandlerFactory {
 
 
   @Override
-  public RequestHandler getHandler(Method method, EntityManager entityManager) {
-    if (method.isDefault()) {
+  public RequestHandler getHandler(String featureName, Method method,
+      RequestType requestType, ModelManager modelManager) {
+
+    if (!requestType.equals(RequestType.GET_OR_DEFAULT) ||
+        method.isDefault()) {
       return null;
     }
+
     RequestHandler handler = null;
     Class<?> returnType = method.getReturnType();
-    if (method.getName().startsWith("getOrDefault") && method.getParameterCount() == 1
-        && returnType != Void.class) {
 
-      String featureName = method.getName().substring(12);
-      featureName = Introspector.decapitalize(featureName);
+    handler = new GetOrDefaultRequestHandler(featureName, method, requestType, modelManager);
 
-      if (returnType.isPrimitive()) {
-        if (returnType == byte.class) {
-          handler = new GetOrDefaultRequestHandler(featureName, method, (byte) 0);
-        } else if (returnType == short.class) {
-          handler = new GetOrDefaultRequestHandler(featureName, method, (short) 0);
-        } else if (returnType == int.class) {
-          handler = new GetOrDefaultRequestHandler(featureName, method, 0);
-        } else if (returnType == long.class) {
-          handler = new GetOrDefaultRequestHandler(featureName, method, (long) 0);
-        } else if (returnType == float.class) {
-          handler = new GetOrDefaultRequestHandler(featureName, method, (float) 0);
-        } else if (returnType == double.class) {
-          handler = new GetOrDefaultRequestHandler(featureName, method, (double) 0);
-        } else if (returnType == char.class) {
-          handler = new GetOrDefaultRequestHandler(featureName, method, (char) 0);
-        } else if (returnType == boolean.class) {
-          handler = new GetOrDefaultRequestHandler(featureName, method, false);
-        }
-      } else {
-        handler = new GetOrDefaultRequestHandler(featureName, method, null);
-      }
-
-    }
     return handler;
   }
 
-  @RequiredArgsConstructor
-  @Getter
-  public static class GetOrDefaultRequestHandler implements RequestHandler {
+  public static class GetOrDefaultRequestHandler extends AbstractRequestHandler {
 
-    private final String featureName;
-    private final Method method;
-    private final Object defaultValue;
+    public GetOrDefaultRequestHandler(String featureName, Method method, RequestType requestType, ModelManager modelManager) {
+      super(featureName, method, requestType, null, modelManager);
+    }
 
     @Override
-    public Object handleRequest(Request request) {
-      Object value = request.getElementHandler().getFeatureValue(featureName);
-      if (value == null) {
-        value = request.getArgs()[0];
-      }
-      if (value == null) {
-        return defaultValue;
-      }
-      return value;
+    public Object handle(Object proxy, Method method, Object[] args,
+        ModelObjectHandler objectHandler) {
+      Object value = objectHandler.getFeatureValue(featureName);
+      return value != null ? value : args[0];
     }
   }
 }
