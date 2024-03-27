@@ -5,20 +5,22 @@ import java.lang.invoke.MethodHandles;
 import java.lang.invoke.MethodType;
 
 public class PublicLookupExample {
-    public static void main(String[] args) throws Throwable {
-        MethodHandles.Lookup lookup = MethodHandles.lookup();
+
+  public static void main(String[] args) throws Throwable {
+    MethodHandles.Lookup lookup = MethodHandles.lookup();
 //        MethodHandles.Lookup lookup = MethodHandles.publicLookup();
-        MethodHandle toString = lookup.findVirtual(Object.class, "toString", MethodType.methodType(String.class));
-        String abc = new String("abc");
-        MethodHandle methodHandle = toString.bindTo(abc);
+    MethodHandle toString = lookup.findVirtual(Object.class, "toString",
+        MethodType.methodType(String.class));
+    String abc = "abc";
+    MethodHandle methodHandle = toString.bindTo(abc);
 
-
-        Helper.drunHandler(methodHandle);
-    }
+    Helper.drunHandler(methodHandle);
+  }
 }
 
 class Helper {
-    static void drunHandler(MethodHandle handle) throws Throwable {
-        System.out.println(handle.invoke());
-    }
+
+  static void drunHandler(MethodHandle handle) throws Throwable {
+    System.out.println(handle.invoke());
+  }
 }

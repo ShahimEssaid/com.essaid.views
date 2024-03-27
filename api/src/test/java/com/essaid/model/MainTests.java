@@ -32,13 +32,11 @@ public class MainTests {
     // get default value
     assertThat(tire.getBrandName_default("Default")).isEqualTo("Default");
     assertThat(tire.getBrandName()).isNull();
-    ;
 
     // get or set value
     tire.getBrandName_set("OrSet");
     assertThat(tire.getBrandName()).isEqualTo("OrSet");
     tire.setBrandName(null);
-
 
     // get the value from the object handler
     ModelObjectHandler handler = ImplUtils.getHandler(tire);
@@ -57,7 +55,9 @@ public class MainTests {
 
     // set and chain
     assertThat(tire.setBrandName_chain("chaining").getBrandName()).isEqualTo("chaining");
-    assertThat(tire.setBrandName_chain("new").setBrandName_chain("chaining").getBrandName()).isEqualTo("chaining");
+    assertThat(
+        tire.setBrandName_chain("new").setBrandName_chain("chaining").getBrandName()).isEqualTo(
+        "chaining");
 
 
   }
@@ -77,7 +77,7 @@ public class MainTests {
 
 
   @Test
-  void primitives(){
+  void primitives() {
     ModelManager manager = Configs.createDefaultModelManagerManager();
     Primitives p = manager.create(Primitives.class);
 
@@ -88,7 +88,7 @@ public class MainTests {
   }
 
   @Test
-  void careSpareTire(){
+  void careSpareTire() {
     ModelManager manager = Configs.createDefaultModelManagerManager();
     Car car = manager.create(Car.class);
 
@@ -106,7 +106,6 @@ public class MainTests {
     Tire addedTire = car.getTires_add();
     addedTire.setBrandName("First added tire");
     assertThat(tires.get(0).getBrandName()).isEqualTo("First added tire");
-
 
 
   }

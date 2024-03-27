@@ -8,11 +8,11 @@ import java.util.Optional;
 
 public class ModelUtils {
 
-  public static Optional<ModelObjectHandler> getModelObjectHandler(Objects object){
+  public static Optional<ModelObjectHandler> getModelObjectHandler(Objects object) {
     ModelObjectHandler handler = null;
-    if (Proxy.isProxyClass(object.getClass())){
+    if (Proxy.isProxyClass(object.getClass())) {
       InvocationHandler invocationHandler = Proxy.getInvocationHandler(object);
-      if (invocationHandler instanceof ModelObjectHandler){
+      if (invocationHandler instanceof ModelObjectHandler) {
         handler = (ModelObjectHandler) invocationHandler;
       }
     }

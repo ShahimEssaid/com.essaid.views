@@ -141,16 +141,14 @@ public enum RequestType {
               + "pattern. Method: " + method);
         }
         type = GET_OR_CREATE;
-      } else if (methodName.endsWith(GET_ADD.suffix)){
-        if(method.getParameterCount() != 0 ||
-        method.getReturnType() == Void.class){
+      } else if (methodName.endsWith(GET_ADD.suffix)) {
+        if (method.getParameterCount() != 0 ||
+            method.getReturnType() == Void.class) {
           throw new IllegalStateException("Method signature does not match with a GET ADD "
               + "pattern. Method: " + method);
         }
         type = GET_ADD;
-      }
-
-      else {
+      } else {
         if (method.getParameterCount() != 0 ||
             method.getReturnType() == Void.class) {
           throw new IllegalStateException("Method signature does not match with the GET "

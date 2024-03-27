@@ -21,7 +21,8 @@ public interface ModelManager {
 
     String getFeatureName(Method method);
 
-    Object handle(Object proxy, Method method, Object[] args, ModelObjectHandler modelObjectHandler);
+    Object handle(Object proxy, Method method, Object[] args,
+        ModelObjectHandler modelObjectHandler);
   }
 
 }

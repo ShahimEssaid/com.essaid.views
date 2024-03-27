@@ -8,6 +8,4 @@ public interface A {
     return null;
   }
 
-  ;
-
 }

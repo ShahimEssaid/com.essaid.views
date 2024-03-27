@@ -22,11 +22,10 @@ public class GetOrSetRequestHandlerFactory implements RequestHandlerFactory {
     RequestHandler handler = null;
     Class<?> returnType = method.getReturnType();
 
-    handler = new GetOrSetRequestHandler(featureName, method, requestType,modelManager);
+    handler = new GetOrSetRequestHandler(featureName, method, requestType, modelManager);
 
     return handler;
   }
-
 
 
   public static class GetOrSetRequestHandler extends AbstractRequestHandler {
@@ -40,9 +39,9 @@ public class GetOrSetRequestHandlerFactory implements RequestHandlerFactory {
     public Object handle(Object proxy, Method method, Object[] args,
         ModelObjectHandler objectHandler) {
       Object value = objectHandler.getFeatureValue(featureName);
-      if (value == null ){
+      if (value == null) {
         value = args[0];
-        if(value != null){
+        if (value != null) {
           objectHandler.setFeatureValue(featureName, value);
         }
       }

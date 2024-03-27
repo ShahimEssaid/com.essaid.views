@@ -29,7 +29,8 @@ public class GetOrDefaultRequestHandlerFactory implements RequestHandlerFactory 
 
   public static class GetOrDefaultRequestHandler extends AbstractRequestHandler {
 
-    public GetOrDefaultRequestHandler(String featureName, Method method, RequestType requestType, ModelManager modelManager) {
+    public GetOrDefaultRequestHandler(String featureName, Method method, RequestType requestType,
+        ModelManager modelManager) {
       super(featureName, method, requestType, null, modelManager);
     }
 

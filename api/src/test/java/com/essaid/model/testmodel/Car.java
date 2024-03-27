@@ -6,18 +6,21 @@ import java.util.Map;
 public interface Car extends Vehicle {
 
   Tire getSpareTire();
-  Tire getSpareTire_create();
 
   void setSpareTire(Tire tire);
+
+  Tire getSpareTire_create();
+
   Tire setSpareTire_get(Tire newTire);
 
   // List stuff
   List<Tire> getTires();
-  List<Tire> getTires_create();
-  Tire getTires_add();
 
   void setTires(List<Tire> tireLoad);
 
+  List<Tire> getTires_create();
+
+  Tire getTires_add();
 
   Tire addTireLoadList(); // adds a new element instance to the List and return the instance
 
@@ -36,15 +39,6 @@ public interface Car extends Vehicle {
   Tire putTireLoadMap(String key); // creates a new Tire and puts it with the key.
 
   Car putTireLoadMap(String key, Tire tire); // puts the args in the map and returns self.
-
-
-
-
-
-
-
-
-
 
   // create or get an instance of Tire, the actual value.  If this was a List/Map, it will create the List/Map if
   // it's not created yet

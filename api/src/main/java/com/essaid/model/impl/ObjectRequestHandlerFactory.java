@@ -1,23 +1,22 @@
 package com.essaid.model.impl;
 
 import com.essaid.model.ModelManager;
-import com.essaid.model.internal.Invocation;
 import com.essaid.model.internal.RequestHandler;
 import com.essaid.model.internal.RequestHandlerFactory;
-
 import com.essaid.model.internal.RequestType;
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 public class ObjectRequestHandlerFactory implements RequestHandlerFactory {
 
 
-    @Override
-    public RequestHandler getHandler(String featureName, Method method,
-        RequestType requestType, ModelManager modelManager) {
-        if (method.isDefault()) return null;
-        String methodName = method.getName();
-        RequestHandler handler = null;
+  @Override
+  public RequestHandler getHandler(String featureName, Method method,
+      RequestType requestType, ModelManager modelManager) {
+      if (method.isDefault()) {
+          return null;
+      }
+    String methodName = method.getName();
+    RequestHandler handler = null;
 
 //        if (methodName.equals(RequestHandler.TO_STRING) && method.getParameterCount() == 0) {
 //            handler = new ToStringRequestHandler(method, RequestHandler.TO_STRING);
@@ -27,8 +26,8 @@ public class ObjectRequestHandlerFactory implements RequestHandlerFactory {
 //            handler = new EqualsRequestHandler();
 //        }
 
-        return handler;
-    }
+    return handler;
+  }
 
 //    public static class ToStringRequestHandler extends AbstractRequestHandler {
 //

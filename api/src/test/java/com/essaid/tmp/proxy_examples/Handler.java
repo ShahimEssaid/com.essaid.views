@@ -1,10 +1,8 @@
 package com.essaid.tmp.proxy_examples;
 
-import java.io.EOFException;
 import java.io.FileNotFoundException;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
-import java.lang.reflect.Proxy;
 
 public class Handler implements InvocationHandler {
 

@@ -1,30 +1,25 @@
 package com.essaid.model.impl;
 
 import com.essaid.model.ModelManager;
-import com.essaid.model.internal.Invocation;
 import com.essaid.model.internal.RequestHandler;
 import com.essaid.model.internal.RequestHandlerFactory;
 import com.essaid.model.internal.RequestType;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.Arrays;
-import java.util.List;
 
 public class AcceptRequestHandlerFactory implements RequestHandlerFactory {
 
-    @Override
-    public RequestHandler getHandler(String featureName, Method method,
-        RequestType requestType, ModelManager modelManager) {
-        if (method.isDefault()) return null;
-        RequestHandler handler = null;
-        if (method.getName().equals("accept") && method.getParameterCount() ==1) {
+  @Override
+  public RequestHandler getHandler(String featureName, Method method,
+      RequestType requestType, ModelManager modelManager) {
+      if (method.isDefault()) {
+          return null;
+      }
+    RequestHandler handler = null;
+    if (method.getName().equals("accept") && method.getParameterCount() == 1) {
 //            handler = new AcceptRequestHandler();
-        }
-        return handler;
     }
+    return handler;
+  }
 
 //    @RequiredArgsConstructor
 //    @Getter

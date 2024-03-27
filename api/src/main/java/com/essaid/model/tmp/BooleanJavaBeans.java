@@ -14,20 +14,20 @@ public class BooleanJavaBeans {
 
   public static class Bean {
 
-   public boolean isBooleanOne(){
+    public boolean isBooleanOne() {
       return true;
     }
 
-    public Boolean isBooleanTwo(){
+    public Boolean isBooleanTwo() {
       return null;
     }
 
-    public boolean getBooleanThree(){
-     return false;
+    public boolean getBooleanThree() {
+      return false;
     }
 
-    public Boolean getBooleanFour(){
-     return null;
+    public Boolean getBooleanFour() {
+      return null;
     }
 
 

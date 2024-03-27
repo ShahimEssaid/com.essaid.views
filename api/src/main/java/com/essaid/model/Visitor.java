@@ -2,5 +2,5 @@ package com.essaid.model;
 
 public interface Visitor {
 
-    void visit(Object object);
+  void visit(Object object);
 }

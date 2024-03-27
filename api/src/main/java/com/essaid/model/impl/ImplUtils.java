@@ -17,10 +17,10 @@ public class ImplUtils {
     return result;
   }
 
-  public static ModelObjectHandler getHandler(Object o){
-    if(Proxy.isProxyClass(o.getClass())){
+  public static ModelObjectHandler getHandler(Object o) {
+    if (Proxy.isProxyClass(o.getClass())) {
       InvocationHandler invocationHandler = Proxy.getInvocationHandler(o);
-      if (invocationHandler instanceof ModelObjectHandler){
+      if (invocationHandler instanceof ModelObjectHandler) {
         return (ModelObjectHandler) invocationHandler;
       }
     }

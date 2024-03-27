@@ -97,7 +97,8 @@ public class MapModelManager extends AbstractModelManager {
     return modelConfig.getHandlerFactories()
         .stream()
         .map(
-            requestHandlerFactory -> requestHandlerFactory.getHandler(featureName, method, requestType,this
+            requestHandlerFactory -> requestHandlerFactory.getHandler(featureName, method,
+                requestType, this
             ))
         .filter(Objects::nonNull)
         .findFirst()

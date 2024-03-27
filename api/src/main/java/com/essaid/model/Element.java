@@ -6,7 +6,7 @@ import com.essaid.model.internal.Instantiable;
 public interface Element extends Instantiable<InternalElement> {
 
   interface InternalElement extends Element,
-      InternalInstantiable<InternalElement>{
+      InternalInstantiable<InternalElement> {
 
     Element _getContainer();
 

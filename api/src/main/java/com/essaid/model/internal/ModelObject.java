@@ -1,7 +1,6 @@
 package com.essaid.model.internal;
 
 import com.essaid.model.Visitable;
-import com.essaid.model.internal.ModelObject.InternalModelObject;
 
 public interface ModelObject<I extends ModelObject<I>> extends Visitable {
 

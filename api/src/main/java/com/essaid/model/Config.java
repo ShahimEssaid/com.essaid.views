@@ -1,11 +1,11 @@
 package com.essaid.model;
 
 import com.essaid.model.impl.ImplUtils;
-import com.essaid.model.internal.RequestHandlerFactory;
 import com.essaid.model.internal.EqualsToStringHashCodeDefaults;
 import com.essaid.model.internal.InstanceFactory;
 import com.essaid.model.internal.Instantiable;
 import com.essaid.model.internal.ModelObject;
+import com.essaid.model.internal.RequestHandlerFactory;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;

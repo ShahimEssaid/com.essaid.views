@@ -5,6 +5,6 @@ import java.lang.reflect.Method;
 
 public interface RequestHandler {
 
-    Object handle(Object proxy, Method method, Object[] args,
-        ModelObjectHandler objectHandler);
+  Object handle(Object proxy, Method method, Object[] args,
+      ModelObjectHandler objectHandler);
 }

@@ -7,18 +7,18 @@ import java.util.Map;
 public interface
 ModelObjectHandler extends InvocationHandler {
 
-    Class<?> getObjectType();
+  Class<?> getObjectType();
 
-    Object getFeatureValue(String featureName);
+  Object getFeatureValue(String featureName);
 
-    Object setFeatureValue(String featureName, Object value);
+  Object setFeatureValue(String featureName, Object value);
 
-    Object unsetFeatureValue(String featureName);
+  Object unsetFeatureValue(String featureName);
 
-    boolean hasFeature(String featureName);
+  boolean hasFeature(String featureName);
 
-    ModelManager getModelManager();
+  ModelManager getModelManager();
 
-    Map<String, Object> getMapView();
+  Map<String, Object> getMapView();
 
 }

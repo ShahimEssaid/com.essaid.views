@@ -1,6 +1,6 @@
 package com.essaid.model.tmp;
 
-public interface B1  extends  A {
+public interface B1 extends A {
 
   String a();
 

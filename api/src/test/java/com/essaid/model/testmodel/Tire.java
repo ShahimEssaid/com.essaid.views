@@ -5,18 +5,23 @@ import com.essaid.model.Entity;
 public interface Tire extends Entity {
 
 
+  Object getBrandName();
 
-    Object getBrandName();
-    Object getBrandName_default(Object defaultValue);
-    Object getBrandName_set(Object defaultValue);
+  void setBrandName(Object bean);
 
-    void setBrandName(Object bean);
-    Object setBrandName_get(Object bean);
-    Tire setBrandName_chain(Object bean);
+  Object getBrandName_default(Object defaultValue);
 
-    void setSpare(boolean isSpare);
-    boolean isSpare();
-    boolean getSpare();
+  Object getBrandName_set(Object defaultValue);
+
+  Object setBrandName_get(Object bean);
+
+  Tire setBrandName_chain(Object bean);
+
+  boolean isSpare();
+
+  boolean getSpare();
+
+  void setSpare(boolean isSpare);
 
 
 }

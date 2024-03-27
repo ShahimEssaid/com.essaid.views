@@ -1,6 +1,6 @@
 package com.essaid.model.tmp;
 
-public class B1Impl implements  B1, B2 {
+public class B1Impl implements B1, B2 {
 
   @Override
   public String a() {
