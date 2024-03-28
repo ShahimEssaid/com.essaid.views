@@ -10,10 +10,12 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class ExampleTests extends AbstractTest {
 
-    @Test
-    void memServiceLoader() {
-        List<ModelTypeLoader> modelTypeLoaders = ModelTypes.INSTANCE.getModelTypeLoaders();
-        assertThat(modelTypeLoaders).hasSize(1);
-        assertThat(modelTypeLoaders.stream().filter(modelTypeLoader -> modelTypeLoader.canLoad(null))).hasSize(1);
-    }
+  @Test
+  void memServiceLoader() {
+    List<ModelTypeLoader> modelTypeLoaders = ModelTypes.INSTANCE.getModelTypeLoaders();
+    assertThat(modelTypeLoaders).hasSize(1);
+    assertThat(
+        modelTypeLoaders.stream().filter(modelTypeLoader -> modelTypeLoader.canLoad(null))).hasSize(
+        1);
+  }
 }

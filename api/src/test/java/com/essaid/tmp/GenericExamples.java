@@ -1,6 +1,6 @@
 package com.essaid.tmp;
 
-import com.essaid.model.Entity;
+import com.essaid.model.View;
 import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
@@ -32,7 +32,7 @@ public class GenericExamples {
     list();
   }
 
-  public <T extends String, S extends String> Map<String, ? extends Entity> map() {
+  public <T extends String, S extends String> Map<String, ? extends View> map() {
     return null;
   }
 

@@ -12,9 +12,9 @@ public class ObjectRequestHandlerFactory implements RequestHandlerFactory {
   @Override
   public RequestHandler getHandler(String featureName, Method method,
       RequestType requestType, ModelManager modelManager) {
-      if (method.isDefault()) {
-          return null;
-      }
+    if (method.isDefault()) {
+      return null;
+    }
     String methodName = method.getName();
     RequestHandler handler = null;
 

@@ -3,8 +3,6 @@ package com.essaid.model;
 import com.essaid.model.impl.ImplUtils;
 import com.essaid.model.internal.EqualsToStringHashCodeDefaults;
 import com.essaid.model.internal.InstanceFactory;
-import com.essaid.model.internal.Instantiable;
-import com.essaid.model.internal.ModelObject;
 import com.essaid.model.internal.RequestHandlerFactory;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -23,12 +21,12 @@ public class Config {
   @Getter
   private final CopyOnWriteArrayList<RequestHandlerFactory> handlerFactories = new CopyOnWriteArrayList<>();
 
-  public Config addInstantiableInterface(Class<? extends Instantiable<?>> modelInterface,
+  public Config addInstantiableInterface(Class<? extends View> modelInterface,
       Class<?>... interfaceDefaults) {
     return addInstantiableInterface(modelInterface, Arrays.asList(interfaceDefaults));
   }
 
-  public Config addInstantiableInterface(Class<? extends Instantiable<?>> modelInterface,
+  public Config addInstantiableInterface(Class<? extends View> modelInterface,
       List<Class<?>> interfaceDefaults) {
     List<Class<?>> interfaces = new ArrayList<>(interfaceDefaults);
     interfaces.add(modelInterface);
@@ -37,12 +35,12 @@ public class Config {
     return this;
   }
 
-  public Config addMixinInterface(Class<? extends Mixin> mixinInterface,
+  public Config addMixinInterface(Class<? extends View> mixinInterface,
       Class<?>... interfaceDefaults) {
     return addMixinInterface(mixinInterface, Arrays.asList(interfaceDefaults));
   }
 
-  public Config addMixinInterface(Class<? extends Mixin> mixinInterface,
+  public Config addMixinInterface(Class<? extends View> mixinInterface,
       List<Class<?>> interfaceDefaults) {
     List<Class<?>> interfaces = new ArrayList<>(interfaceDefaults);
     interfaces.add(mixinInterface);
@@ -54,7 +52,7 @@ public class Config {
   public Config addExternalInterface(Class<?> external,
       List<Class<?>> interfaceDefaults) {
 
-    if (ModelObject.class.isAssignableFrom(external)) {
+    if (View.class.isAssignableFrom(external)) {
       throw new IllegalArgumentException("Interface is not external: " + external.getName());
     }
 

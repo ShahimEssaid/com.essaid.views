@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns="http://maven.apache.org/POM/4.0.0"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <artifactId>com.essaid.model.api</artifactId>
 
-    <parent>
-        <groupId>com.essaid.model</groupId>
-        <artifactId>com.essaid.model.parent</artifactId>
-        <version>${revision}</version>
-        <relativePath>../parent</relativePath>
-    </parent>
+  <dependencies>
+    <dependency>
+      <artifactId>lombok</artifactId>
+      <groupId>org.projectlombok</groupId>
+    </dependency>
+  </dependencies>
 
-    <artifactId>com.essaid.model.api</artifactId>
+  <modelVersion>4.0.0</modelVersion>
 
-    <dependencies>
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-        </dependency>
-    </dependencies>
+  <parent>
+    <artifactId>com.essaid.model.parent</artifactId>
+    <groupId>com.essaid.model</groupId>
+    <relativePath>../parent</relativePath>
+    <version>${revision}</version>
+  </parent>
 
 
 </project>

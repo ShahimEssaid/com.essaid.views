@@ -1,10 +1,10 @@
 package com.essaid.model.impl;
 
 import com.essaid.model.ModelManager;
-import com.essaid.model.impl.map.ModelObjectHandler;
 import com.essaid.model.internal.RequestHandler;
 import com.essaid.model.internal.RequestHandlerFactory;
 import com.essaid.model.internal.RequestType;
+import com.essaid.model.internal.ViewHandler;
 import java.lang.reflect.Method;
 
 public class SetAndGetRequestHandlerFactory implements RequestHandlerFactory {
@@ -29,14 +29,14 @@ public class SetAndGetRequestHandlerFactory implements RequestHandlerFactory {
 
     @Override
     public Object handle(Object proxy, Method method, Object[] args,
-        ModelObjectHandler objectHandler) {
-      Object oldValue = objectHandler.getFeatureValue(featureName);
+        ViewHandler viewHandler) {
+      Object oldValue = viewHandler.getState().getFeatureValue(featureName);
       Object newValue = args[0];
 
       if (newValue == null) {
-        objectHandler.unsetFeatureValue(featureName);
+        viewHandler.getState().unsetFeatureValue(featureName);
       } else {
-        objectHandler.setFeatureValue(featureName, newValue);
+        viewHandler.getState().setFeatureValue(featureName, newValue);
       }
       return oldValue;
     }

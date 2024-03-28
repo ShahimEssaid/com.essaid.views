@@ -2,12 +2,15 @@ package com.essaid.model;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import com.essaid.model.View.InternalView;
+import com.essaid.model.impl.DefaultMapTransformer;
 import com.essaid.model.impl.ImplUtils;
-import com.essaid.model.internal.ModelObjectHandler;
+import com.essaid.model.internal.ViewHandler;
 import com.essaid.model.testmodel.Car;
 import com.essaid.model.testmodel.Primitives;
 import com.essaid.model.testmodel.Tire;
 import java.util.List;
+import java.util.Map;
 import org.junit.jupiter.api.Test;
 
 public class MainTests {
@@ -17,6 +20,8 @@ public class MainTests {
     ModelManager manager = Configs.createDefaultModelManagerManager();
     Tire tire = manager.create(Tire.class);
     assertThat(tire).isNotNull();
+
+//    TireInternal tireInternal = tire._internal();
 
     // get
     assertThat(tire.getBrandName()).isNull();
@@ -39,11 +44,11 @@ public class MainTests {
     tire.setBrandName(null);
 
     // get the value from the object handler
-    ModelObjectHandler handler = ImplUtils.getHandler(tire);
-    Object brandName = handler.getFeatureValue("brandName");
+    ViewHandler handler = ImplUtils.getHandler(tire);
+    Object brandName = handler.getState().getFeatureValue("brandName");
     assertThat(brandName).isNull();
     tire.setBrandName("brand");
-    brandName = handler.getFeatureValue("brandName");
+    brandName = handler.getState().getFeatureValue("brandName");
     assertThat(brandName).isEqualTo("brand");
     tire.setBrandName(null);
 
@@ -91,6 +96,7 @@ public class MainTests {
   void careSpareTire() {
     ModelManager manager = Configs.createDefaultModelManagerManager();
     Car car = manager.create(Car.class);
+    InternalView internalView = car._internal();
 
     assertThat(car.getSpareTire()).isNull();
     Tire spare = car.getSpareTire_create();
@@ -107,7 +113,11 @@ public class MainTests {
     addedTire.setBrandName("First added tire");
     assertThat(tires.get(0).getBrandName()).isEqualTo("First added tire");
 
+    MapTransformer maptransformer = new DefaultMapTransformer();
+    Map<String, Object> map = maptransformer.toMap(car);
 
+    System.out.println(map);
   }
+
 
 }

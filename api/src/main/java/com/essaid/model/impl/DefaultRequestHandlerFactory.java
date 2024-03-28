@@ -1,10 +1,10 @@
 package com.essaid.model.impl;
 
 import com.essaid.model.ModelManager;
-import com.essaid.model.impl.map.ModelObjectHandler;
 import com.essaid.model.internal.RequestHandler;
 import com.essaid.model.internal.RequestHandlerFactory;
 import com.essaid.model.internal.RequestType;
+import com.essaid.model.internal.ViewHandler;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 
@@ -21,7 +21,7 @@ public class DefaultRequestHandlerFactory implements RequestHandlerFactory, Requ
 
   @Override
   public Object handle(Object proxy, Method method, Object[] args,
-      ModelObjectHandler objectHandler) {
+      ViewHandler objectHandler) {
 
     try {
       return InvocationHandler.invokeDefault(proxy, method, args);

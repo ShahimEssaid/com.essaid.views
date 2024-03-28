@@ -11,21 +11,22 @@ import java.util.stream.Collectors;
 public class ModelTypesImpl implements ModelTypes {
 
 
-    private List<ModelTypeLoader> loaders;
+  private List<ModelTypeLoader> loaders;
 
-    @Override
-    public ModelType getType(Object environmentHint) {
-        return null;
-    }
+  @Override
+  public ModelType getType(Object environmentHint) {
+    return null;
+  }
 
-    @Override
-    public List<ModelTypeLoader> getModelTypeLoaders() {
-        if (loaders == null) {
-            loaders = ServiceLoader.load(ModelTypeLoader.class).stream().map(ServiceLoader.Provider::get).collect(
-                    Collectors.toList());
-        }
-        return loaders;
+  @Override
+  public List<ModelTypeLoader> getModelTypeLoaders() {
+    if (loaders == null) {
+      loaders = ServiceLoader.load(ModelTypeLoader.class).stream().map(ServiceLoader.Provider::get)
+          .collect(
+              Collectors.toList());
     }
+    return loaders;
+  }
 
 
 }

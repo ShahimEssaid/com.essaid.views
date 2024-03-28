@@ -4,8 +4,8 @@ import java.util.List;
 
 public interface ModelTypeLoader {
 
-    boolean canLoad(Object typeHint);
+  boolean canLoad(Object typeHint);
 
-   <E extends Entity> ModelType<E> load(Object typeHint);
+  <E extends Entity> ModelType<E> load(Object typeHint);
 
 }

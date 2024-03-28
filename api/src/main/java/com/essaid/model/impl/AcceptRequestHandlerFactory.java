@@ -11,9 +11,9 @@ public class AcceptRequestHandlerFactory implements RequestHandlerFactory {
   @Override
   public RequestHandler getHandler(String featureName, Method method,
       RequestType requestType, ModelManager modelManager) {
-      if (method.isDefault()) {
-          return null;
-      }
+    if (method.isDefault()) {
+      return null;
+    }
     RequestHandler handler = null;
     if (method.getName().equals("accept") && method.getParameterCount() == 1) {
 //            handler = new AcceptRequestHandler();

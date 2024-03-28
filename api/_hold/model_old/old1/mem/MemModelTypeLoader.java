@@ -7,13 +7,14 @@ import com.essaid.model_old.old1.ModelTypes;
 import java.util.List;
 
 public class MemModelTypeLoader implements ModelTypeLoader {
-    @Override
-    public boolean canLoad(Object typeHint) {
-        return typeHint == null;
-    }
 
-    @Override
-    public ModelType load(Object typeHint) {
-        return null;
-    }
+  @Override
+  public boolean canLoad(Object typeHint) {
+    return typeHint == null;
+  }
+
+  @Override
+  public ModelType load(Object typeHint) {
+    return null;
+  }
 }

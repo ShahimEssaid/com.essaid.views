@@ -1,8 +1,8 @@
 package com.essaid.model.testmodel;
 
-import com.essaid.model.Entity;
+import com.essaid.model.View;
 
-public interface Tire extends Entity {
+public interface Tire extends View {
 
 
   Object getBrandName();

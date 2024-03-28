@@ -1,10 +1,10 @@
 package com.essaid.model.impl;
 
 import com.essaid.model.ModelManager;
-import com.essaid.model.impl.map.ModelObjectHandler;
 import com.essaid.model.internal.RequestHandler;
 import com.essaid.model.internal.RequestHandlerFactory;
 import com.essaid.model.internal.RequestType;
+import com.essaid.model.internal.ViewHandler;
 import java.lang.reflect.Method;
 import java.util.List;
 
@@ -37,11 +37,11 @@ public class GetAddRequestHandlerFactory implements RequestHandlerFactory {
 
     @Override
     public Object handle(Object proxy, Method method, Object[] args,
-        ModelObjectHandler objectHandler) {
-      List featureValue = (List) objectHandler.getFeatureValue(featureName);
+        ViewHandler viewHandler) {
+      List featureValue = (List) viewHandler.getState().getFeatureValue(featureName);
       if (featureValue == null) {
         featureValue = modelManager.create(List.class);
-        objectHandler.setFeatureValue(featureName, featureValue);
+        viewHandler.getState().setFeatureValue(featureName, featureValue);
       }
       Object addedValue = modelManager.create(method.getReturnType());
       featureValue.add(addedValue);

@@ -90,6 +90,8 @@ public enum RequestType {
 
   GET_ADD("get", "_add"),
 
+  _GET_VIEW_HANDLER("_getviewhandler", ""),
+
   /**
    * An unknown (i.e. not builtin) request type.
    */
@@ -182,6 +184,8 @@ public enum RequestType {
         }
         type = SET;
       }
+    } else if (methodName.equals(_GET_VIEW_HANDLER.prefix)) {
+      type = _GET_VIEW_HANDLER;
     }
 
     return type;
