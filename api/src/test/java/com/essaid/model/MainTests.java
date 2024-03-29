@@ -7,6 +7,8 @@ import com.essaid.model.impl.DefaultMapTransformer;
 import com.essaid.model.impl.ImplUtils;
 import com.essaid.model.internal.ViewHandler;
 import com.essaid.model.testmodel.Car;
+import com.essaid.model.testmodel.PhenoType;
+import com.essaid.model.testmodel.PhenoTypeCombinded;
 import com.essaid.model.testmodel.Primitives;
 import com.essaid.model.testmodel.Tire;
 import java.util.List;
@@ -17,8 +19,13 @@ public class MainTests {
 
   @Test
   void tireBrandNameTest() {
-    ModelManager manager = Configs.createDefaultModelManagerManager();
+    ModelManager manager = Configs.createDefaultModelManager();
+    PhenoType phenoType = manager.create(PhenoType.class);
+
+
     Tire tire = manager.create(Tire.class);
+//    PhenoTypeCombinded phenoTypeCombinded = tire._as(PhenoTypeCombinded.class);
+
     assertThat(tire).isNotNull();
 
 //    TireInternal tireInternal = tire._internal();
@@ -69,7 +76,7 @@ public class MainTests {
 
   @Test
   void tireSpareTest() {
-    ModelManager manager = Configs.createDefaultModelManagerManager();
+    ModelManager manager = Configs.createDefaultModelManager();
     Tire tire = manager.create(Tire.class);
 
     assertThat(tire.isSpare()).isFalse();
@@ -83,7 +90,7 @@ public class MainTests {
 
   @Test
   void primitives() {
-    ModelManager manager = Configs.createDefaultModelManagerManager();
+    ModelManager manager = Configs.createDefaultModelManager();
     Primitives p = manager.create(Primitives.class);
 
     assertThat(p.getByte()).isEqualTo((byte) 0);
@@ -94,7 +101,7 @@ public class MainTests {
 
   @Test
   void careSpareTire() {
-    ModelManager manager = Configs.createDefaultModelManagerManager();
+    ModelManager manager = Configs.createDefaultModelManager();
     Car car = manager.create(Car.class);
     InternalView internalView = car._internal();
 

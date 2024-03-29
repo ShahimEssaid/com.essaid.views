@@ -2,7 +2,7 @@ package com.essaid.model.impl.map;
 
 import com.essaid.model.MapFactory;
 import com.essaid.model.View;
-import com.essaid.model.internal.State;
+import com.essaid.model.internal.ObjectState;
 import java.beans.BeanInfo;
 import java.beans.IntrospectionException;
 import java.beans.Introspector;
@@ -61,9 +61,9 @@ public class ToMap {
     // for View values
     if (object instanceof View) {
       Map<String, Object> map = mapFactory.createMap(object);
-      State state = ((View) object)._internal()._getViewHandler().getState();
-      for (String featureName : state.getFeatureNames().stream().sorted().toList()) {
-        Object featureValue = state.getFeatureValue(featureName);
+      ObjectState objectState = ((View) object)._internal()._getViewHandler().getState();
+      for (String featureName : objectState.getFeatureNames().stream().sorted().toList()) {
+        Object featureValue = objectState.getFeatureValue(featureName);
         Object objectValue = getObjectValue(featureValue);
         if (objectValue != null) {
           map.put(featureName, objectValue);

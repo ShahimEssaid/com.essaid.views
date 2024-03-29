@@ -1,11 +1,22 @@
 package com.essaid.model.impl.map;
 
-import com.essaid.model.internal.State;
+import com.essaid.model.internal.ObjectState;
 import java.util.Collections;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
-public class DefaultState extends ConcurrentHashMap<String, Object> implements State {
+public class DefaultObjectState extends ConcurrentHashMap<String, Object> implements ObjectState {
+
+
+  @Override
+  public Object getValue() {
+    return get(ObjectState.class.getName());
+  }
+
+  @Override
+  public Object setValue(Object value) {
+    return put(ObjectState.class.getName(), value);
+  }
 
   @Override
   public Object getFeatureValue(String featureName) {
@@ -31,4 +42,5 @@ public class DefaultState extends ConcurrentHashMap<String, Object> implements S
   public Set<String> getFeatureNames() {
     return Collections.unmodifiableSet(keySet());
   }
+
 }

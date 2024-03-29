@@ -1,7 +1,7 @@
 package com.essaid.model;
 
-import com.essaid.model.impl.map.DefaultViewHandler;
-import com.essaid.model.internal.State;
+import com.essaid.model.internal.ObjectState;
+import com.essaid.model.internal.ViewHandler;
 import java.lang.reflect.Method;
 
 /**
@@ -30,12 +30,19 @@ public interface ModelManager {
 
   interface Internal extends ModelManager {
 
-    <T> T as(Class<T> viewType, State state, Class<?>... customDefaults);
+    <T> T as(Class<T> viewType, ObjectState objectState, Class<?>... customDefaults);
 
     String getFeatureName(Method method);
 
     Object handle(Object proxy, Method method, Object[] args,
-        DefaultViewHandler modelObjectHandler);
+        ViewHandler modelObjectHandler);
+
+    Method getClientMethod(Class<?> clientType, Method invokedProxyMethod);
+
+    ObjectState createState();
+
+    ViewHandler createViewHandler(ObjectState state);
+
   }
 
 }

@@ -48,7 +48,7 @@ public class Configs {
     config.addHandlerFactory(new ObjectRequestHandlerFactory());
   }
 
-  public static ModelManager createDefaultModelManagerManager() {
+  public static ModelManager createDefaultModelManager() {
     Config config = new Config();
     Configs.applyDefaults(config);
     ModelManager modelManager = new MapModelManager(config);

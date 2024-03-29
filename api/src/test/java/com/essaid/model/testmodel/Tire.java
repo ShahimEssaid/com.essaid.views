@@ -5,17 +5,19 @@ import com.essaid.model.View;
 public interface Tire extends View {
 
 
-  Object getBrandName();
+  String getBrandName();
 
-  void setBrandName(Object bean);
+  void setBrandName(String bean);
 
-  Object getBrandName_default(Object defaultValue);
+  String getBrandName_default(String defaultValue);
 
-  Object getBrandName_set(Object defaultValue);
+  String getBrandName_set(String defaultValue);
 
-  Object setBrandName_get(Object bean);
+  String setBrandName_get(String bean);
 
-  Tire setBrandName_chain(Object bean);
+  Tire setBrandName_chain(String bean);
+
+
 
   boolean isSpare();
 

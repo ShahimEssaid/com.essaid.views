@@ -13,10 +13,10 @@ public interface InstanceFactory {
 //  <T> T create(Class<T> objectType, String instanceId, ModelManager modelManager,
 //      Class<?>... interfaces);
 
-  <T> T create(Class<T> viewType, Class<?>[] viewInterfaces, State state,
+  <T> T create(Class<T> viewType, Class<?>[] viewInterfaces, ObjectState objectState,
       ModelManager modelManager);
 
-  boolean canCreate(Class<?> viewType, Class<?>[] viewInterfaces, State state,
+  boolean canCreate(Class<?> viewType, Class<?>[] viewInterfaces, ObjectState objectState,
       ModelManager modelManager);
 
 }

@@ -2,27 +2,28 @@ package com.essaid.model.impl.map;
 
 import com.essaid.model.ModelManager;
 import com.essaid.model.internal.InstanceFactory;
-import com.essaid.model.internal.State;
+import com.essaid.model.internal.ObjectState;
+import com.essaid.model.internal.ViewHandler;
 import java.lang.reflect.Proxy;
 
 public class ProxyInstanceFactory implements InstanceFactory {
 
   @Override
-  public <T> T create(Class<T> viewType, Class<?>[] viewInterfaces, State state,
+  public <T> T create(Class<T> viewType, Class<?>[] viewInterfaces, ObjectState objectState,
       ModelManager modelManager) {
 
-    if (state == null) {
-      state = new DefaultState();
+    if (objectState == null) {
+      objectState = new DefaultObjectState();
     }
-    DefaultViewHandler handler = new DefaultViewHandler(viewType, state, modelManager,
-        viewInterfaces);
+    ViewHandler viewHandler = modelManager.internal()
+        .createViewHandler(modelManager.internal().createState());
 
-    return (T) Proxy.newProxyInstance(viewType.getClassLoader(), viewInterfaces, handler);
+    return (T) Proxy.newProxyInstance(viewType.getClassLoader(), viewInterfaces, viewHandler);
 
   }
 
   @Override
-  public boolean canCreate(Class<?> viewType, Class<?>[] viewInterfaces, State state,
+  public boolean canCreate(Class<?> viewType, Class<?>[] viewInterfaces, ObjectState objectState,
       ModelManager modelManager) {
     return viewType.isInterface();
   }

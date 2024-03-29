@@ -2,7 +2,11 @@ package com.essaid.model.internal;
 
 import java.util.Set;
 
-public interface State {
+public interface ObjectState {
+
+  Object getValue();
+
+  Object setValue(Object value);
 
   Object getFeatureValue(String featureName);
 

@@ -8,7 +8,7 @@ import java.util.Optional;
 
 public class ModelUtils {
 
-  public static Optional<ViewHandler> getModelObjectHandler(Objects object) {
+  public static Optional<ViewHandler> getViewHandler(Objects object) {
     ViewHandler handler = null;
     if (Proxy.isProxyClass(object.getClass())) {
       InvocationHandler invocationHandler = Proxy.getInvocationHandler(object);

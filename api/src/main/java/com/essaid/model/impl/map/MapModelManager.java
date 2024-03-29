@@ -3,11 +3,12 @@ package com.essaid.model.impl.map;
 import com.essaid.model.Config;
 import com.essaid.model.View.InternalView;
 import com.essaid.model.impl.AbstractModelManager;
+import com.essaid.model.impl.DefaultViewHandler;
 import com.essaid.model.impl.ImplUtils;
 import com.essaid.model.internal.InstanceFactory;
 import com.essaid.model.internal.RequestHandler;
 import com.essaid.model.internal.RequestType;
-import com.essaid.model.internal.State;
+import com.essaid.model.internal.ObjectState;
 import com.essaid.model.internal.ViewHandler;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -28,16 +29,16 @@ public class MapModelManager extends AbstractModelManager {
   }
 
 
-  private InstanceFactory findFactory(Class<?> viewType, Class<?>[] viewInterfaces, State state) {
+  private InstanceFactory findFactory(Class<?> viewType, Class<?>[] viewInterfaces, ObjectState objectState) {
     return modelConfig.getModelFactories()
         .stream()
-        .filter(mf -> mf.canCreate(viewType, viewInterfaces, state, this))
+        .filter(mf -> mf.canCreate(viewType, viewInterfaces, objectState, this))
         .findFirst()
         .orElse(null);
   }
 
   @Override
-  public <T> T as(Class<T> viewType, State state, Class<?>... customDefaults) {
+  public <T> T as(Class<T> viewType, ObjectState objectState, Class<?>... customDefaults) {
     Class<?> implementation = modelConfig.getImplementation(viewType);
     if (implementation != null) {
       try {
@@ -51,9 +52,9 @@ public class MapModelManager extends AbstractModelManager {
     Class<?>[] allInterfaces = calculateInterfaces(viewType, customDefaults);
 
     InstanceFactory instanceFactory = instanceFactories.computeIfAbsent(
-        viewType, c -> findFactory(c, allInterfaces, state));
+        viewType, c -> findFactory(c, allInterfaces, objectState));
 
-    return instanceFactory.create(viewType, allInterfaces, state, this);
+    return instanceFactory.create(viewType, allInterfaces, objectState, this);
   }
 
   private <T> Class<?>[] calculateInterfaces(Class<T> viewType, Class<?>[] customDefaults) {
@@ -66,7 +67,7 @@ public class MapModelManager extends AbstractModelManager {
 
   @Override
   public Object handle(Object proxy, Method method, Object[] args,
-      DefaultViewHandler objectHandler) {
+      ViewHandler objectHandler) {
     RequestHandler handler = methodHandlers.computeIfAbsent(method,
         this::findRequestHandler);
 
@@ -74,6 +75,21 @@ public class MapModelManager extends AbstractModelManager {
       throw new RuntimeException("No handler for method: " + method);
     }
     return handler.handle(proxy, method, args, objectHandler);
+  }
+
+  @Override
+  public Method getClientMethod(Class<?> clientType, Method invokedProxyMethod) {
+    return null;
+  }
+
+  @Override
+  public ObjectState createState() {
+    return new DefaultObjectState();
+  }
+
+  @Override
+  public ViewHandler createViewHandler(ObjectState state) {
+    return new DefaultViewHandler(this, state);
   }
 
   @Override
