@@ -14,4 +14,10 @@ public class _Main {
     System.out.println(string);
   }
 
+
+  @Test
+  void logicalPrecedence(){
+    System.out.println(!false && !true || true);
+  }
+
 }

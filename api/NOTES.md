@@ -1,6 +1,6 @@
-* An adaptable can be adapted to a client interface, and a list of possible default methods
-  implementations. The default method implementations is what the proxy will be based on, the client
-  calls have to come through as default method calls. It's up to the user to guarantee this for now.
-    * The initial object has a state object that is tagged with the original client type. Any
-      adaptation of the object needs to address how to map from/to that original state.
-    * 
+* todo
+  * Add Session.
+  * Adapt all types into a "View" including String, etc.  and try best efforts to convert. Add a Encoding/Decoder API or leave this up to the app?
+  * Copy over Whistle Data interfaces and try to implement them in ViewInternal and/or ViewState.
+  * Cloning, clone on set_clone() if from another model
+  * Check if values are from same model before accepting them.

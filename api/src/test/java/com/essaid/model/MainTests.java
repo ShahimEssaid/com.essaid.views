@@ -2,13 +2,17 @@ package com.essaid.model;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import com.essaid.model.View.InternalView;
-import com.essaid.model.impl.DefaultMapTransformer;
-import com.essaid.model.impl.ImplUtils;
-import com.essaid.model.internal.ViewHandler;
+import com.essaid.views.flex.Configs;
+import com.essaid.views.flex.Session;
+import com.essaid.views.flex.hold.MapTransformer;
+import com.essaid.views.flex.FlexModel;
+import com.essaid.views.flex.internal.InternalView;
+import com.essaid.views.flex.impl.DefaultMapTransformer;
+import com.essaid.views.flex.impl.ImplUtils;
+import com.essaid.views.flex.internal.SessionInternal;
+import com.essaid.views.flex.internal.ViewHandler;
 import com.essaid.model.testmodel.Car;
 import com.essaid.model.testmodel.PhenoType;
-import com.essaid.model.testmodel.PhenoTypeCombinded;
 import com.essaid.model.testmodel.Primitives;
 import com.essaid.model.testmodel.Tire;
 import java.util.List;
@@ -19,11 +23,12 @@ public class MainTests {
 
   @Test
   void tireBrandNameTest() {
-    ModelManager manager = Configs.createDefaultModelManager();
-    PhenoType phenoType = manager.create(PhenoType.class);
+    FlexModel manager = Configs.createDefaultModelManager();
+    Session session = manager.createSession();
+    PhenoType phenoType = session.create(PhenoType.class);
 
 
-    Tire tire = manager.create(Tire.class);
+    Tire tire = session.create(Tire.class);
 //    PhenoTypeCombinded phenoTypeCombinded = tire._as(PhenoTypeCombinded.class);
 
     assertThat(tire).isNotNull();
@@ -76,8 +81,9 @@ public class MainTests {
 
   @Test
   void tireSpareTest() {
-    ModelManager manager = Configs.createDefaultModelManager();
-    Tire tire = manager.create(Tire.class);
+    FlexModel manager = Configs.createDefaultModelManager();
+    Session session = manager.createSession();
+    Tire tire = session.create(Tire.class);
 
     assertThat(tire.isSpare()).isFalse();
     tire.setSpare(true);
@@ -90,8 +96,9 @@ public class MainTests {
 
   @Test
   void primitives() {
-    ModelManager manager = Configs.createDefaultModelManager();
-    Primitives p = manager.create(Primitives.class);
+    FlexModel manager = Configs.createDefaultModelManager();
+    Session session = manager.createSession();
+    Primitives p = session.create(Primitives.class);
 
     assertThat(p.getByte()).isEqualTo((byte) 0);
     assertThat(p.getByte_default((byte) 1)).isEqualTo((byte) 1);
@@ -101,8 +108,9 @@ public class MainTests {
 
   @Test
   void careSpareTire() {
-    ModelManager manager = Configs.createDefaultModelManager();
-    Car car = manager.create(Car.class);
+    FlexModel manager = Configs.createDefaultModelManager();
+    Session session = manager.createSession();
+    Car car = session.create(Car.class);
     InternalView internalView = car._internal();
 
     assertThat(car.getSpareTire()).isNull();

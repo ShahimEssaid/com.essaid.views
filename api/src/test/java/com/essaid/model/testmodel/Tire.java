@@ -1,6 +1,6 @@
 package com.essaid.model.testmodel;
 
-import com.essaid.model.View;
+import com.essaid.views.flex.View;
 
 public interface Tire extends View {
 

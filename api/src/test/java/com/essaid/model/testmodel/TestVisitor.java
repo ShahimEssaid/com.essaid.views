@@ -1,6 +1,6 @@
 package com.essaid.model.testmodel;
 
-import com.essaid.model.Visitor;
+import com.essaid.views.flex.Visitor;
 
 public class TestVisitor implements Visitor {
 
