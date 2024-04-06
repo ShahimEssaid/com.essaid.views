@@ -2,12 +2,12 @@ package com.essaid.tmp;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import com.essaid.views.flex.Configs;
-import com.essaid.views.flex.FlexModel;
-import com.essaid.model._Main2Test.Shape;
+import com.essaid.views.proxy.Configs;
+import com.essaid.views.ViewsManager;
+import com.essaid.views.flex._Main2Test.Shape;
 
 public class RunProfiler {
-  static FlexModel manager = Configs.createDefaultModelManager2();
+  static ViewsManager manager = Configs.createDefaultModelManager2();
 
 
   public static void main(String[] args) {
@@ -19,7 +19,7 @@ public class RunProfiler {
 
     for (int i = 0; i < 1000000 ; ++i){
       startTime = System.nanoTime();
-      shape = manager.createSession().create(Shape.class);
+      shape = manager.createSession().createView(Shape.class, null);
       created = System.nanoTime();
       shape.setName("Square");
       setName = System.nanoTime();

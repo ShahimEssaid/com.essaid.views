@@ -2,13 +2,13 @@ package com.essaid.tmp;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import com.essaid.views.flex.Configs;
-import com.essaid.views.flex.FlexModel;
-import com.essaid.model._Main2Test;
-import com.essaid.model._Main2Test.ShapeClass;
+import com.essaid.views.proxy.Configs;
+import com.essaid.views.ViewsManager;
+import com.essaid.views.flex._Main2Test;
+import com.essaid.views.flex._Main2Test.ShapeClass;
 
 public class RunProfilerClass {
-  static FlexModel manager = Configs.createDefaultModelManager2();
+  static ViewsManager manager = Configs.createDefaultModelManager2();
 
 
   public static void main(String[] args) {
