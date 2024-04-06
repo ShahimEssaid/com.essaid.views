@@ -1,5 +1,6 @@
 package com.essaid.views.proxy.impl.handler;
 
+import com.essaid.views.internal.ViewInternal;
 import com.essaid.views.proxy.internal.Request;
 
 public class GetRequestHandler extends FeatureRequestHandler {
@@ -31,11 +32,12 @@ public class GetRequestHandler extends FeatureRequestHandler {
 
   @Override
   public void handle(Request request) {
-    Object value = get(featureName, returnType, request.getView().__getState());
-    if(value == null ){
-      value = defaultValue;
+    ViewInternal feature = session.getFeature(request.getView().__getState(), featureName, request);
+    if(feature == null){
+      request.getResponse().setValue(defaultValue);
+    } else {
+      Object adapted = session.adapt(feature, request.getInvokedMethod().getReturnType());
+      request.getResponse().setValue(adapted);
     }
-
-    request.getResponse().setValue(value);
   }
 }

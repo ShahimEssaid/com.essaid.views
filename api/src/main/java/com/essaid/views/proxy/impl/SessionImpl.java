@@ -361,8 +361,9 @@ public class SessionImpl extends AbstractSession {
   }
 
   @Override
-  public ViewInternal getFeature(String featureName, Request request) {
-    return null;
+  public ViewInternal getFeature(State state, String featureName, Request request) {
+    ViewInternal featureValue = state.getFeatureValue(featureName);
+    return featureValue;
   }
 
 

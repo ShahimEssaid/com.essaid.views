@@ -16,5 +16,5 @@ public interface SessionInternal extends Session {
 
   ViewInternal setFeature(State state, String featureName, Object value, Request request);
 
-  ViewInternal getFeature(String featureName, Request request);
+  ViewInternal getFeature(State state, String featureName, Request request);
 }
