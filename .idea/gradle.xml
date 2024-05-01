@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="GradleMigrationSettings" migrationVersion="1" />
+  <component name="GradleSettings">
+    <option name="linkedExternalProjectsSettings">
+      <GradleProjectSettings>
+        <compositeConfiguration>
+          <compositeBuild compositeDefinitionSource="SCRIPT">
+            <builds>
+              <build path="$PROJECT_DIR$/views-projects" name="views-projects">
+                <projects>
+                  <project path="$PROJECT_DIR$/views-projects" />
+                  <project path="$PROJECT_DIR$/views-projects/api" />
+                </projects>
+              </build>
+            </builds>
+          </compositeBuild>
+        </compositeConfiguration>
+        <option name="externalProjectPath" value="$PROJECT_DIR$/related-projects/whistle-views" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$/related-projects/whistle-views" />
+            <option value="$PROJECT_DIR$/related-projects/whistle-views/api" />
+            <option value="$PROJECT_DIR$/views-projects" />
+            <option value="$PROJECT_DIR$/views-projects/api" />
+          </set>
+        </option>
+      </GradleProjectSettings>
+      <GradleProjectSettings>
+        <option name="externalProjectPath" value="$PROJECT_DIR$/views-projects" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$/views-projects" />
+            <option value="$PROJECT_DIR$/views-projects/api" />
+          </set>
+        </option>
+      </GradleProjectSettings>
+    </option>
+  </component>
+</project>
