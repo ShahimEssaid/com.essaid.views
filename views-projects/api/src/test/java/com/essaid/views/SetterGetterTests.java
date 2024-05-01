@@ -20,8 +20,8 @@ public class SetterGetterTests {
     Tire tire = session.createView(Tire.class, null);
     tire.setName("Test");
 
-    View viewInternal = (View) tire;
-    Value value = viewInternal._getViewHandler().getValue();
+    View view = (View) tire;
+    Value value = view._getViewHandler().getValue();
     View tireValue = value.getFeatureValue("name");
     String adapt = session.adapt(tireValue, String.class );
     assertThat(adapt).isEqualTo("Test");

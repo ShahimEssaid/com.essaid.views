@@ -32,7 +32,7 @@ dependencies {
 //    annotationProcessor(libs.lombok)
     // Use JUnit Jupiter for testing.
     testImplementation(libs.junit.jupiter)
-    testCompileOnly(libs.assertj)
+    testImplementation(libs.assertj)
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
 
@@ -61,7 +61,7 @@ publishing {
 tasks.named<Test>("test") {
     // Use JUnit Platform for unit tests.
     useJUnitPlatform()
-    exclude("**")
+//    exclude("**")
 }
 
 

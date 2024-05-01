@@ -10,9 +10,9 @@ import java.lang.reflect.Method;
 
 public class ProxyViewHandler extends AbstractViewHandler implements InvocationHandler {
 
-  private static final String GET_TYPE = "__getType";
-  private static final String GET_INTERFACES = "__getInterfaces";
-  private static final String GET_STATE = "__getState";
+//  private static final String GET_TYPE = "__getType";
+//  private static final String GET_INTERFACES = "__getInterfaces";
+  private static final String GET_VIEW_HANDLER = "_getViewHandler";
   private static final String AS = "__as";
 
 
@@ -24,7 +24,7 @@ public class ProxyViewHandler extends AbstractViewHandler implements InvocationH
   @Override
   public Object invoke(Object proxy, Method invokedMethod, Object[] args) throws Throwable {
 
-    if (invokedMethod.getName().startsWith("__")) {
+    if (invokedMethod.getName().startsWith("_")) {
       Object result = handleSpecial(proxy, invokedMethod, args);
       if (result != null) {
         return result;
@@ -38,17 +38,18 @@ public class ProxyViewHandler extends AbstractViewHandler implements InvocationH
 
   private Object handleSpecial(Object proxy, Method invokedMethod, Object[] args) {
 
+    String methodName = invokedMethod.getName();
     // strings are interned
-    if (GET_TYPE == invokedMethod.getName()) {
-      return getViewType();
-    }
+//    if (GET_TYPE == methodName) {
+//      return getViewType();
+//    }
+//
+//    if (GET_INTERFACES == methodName) {
+//      return getInterfaces();
+//    }
 
-    if (GET_INTERFACES == invokedMethod.getName()) {
-      return getInterfaces();
-    }
-
-    if (GET_STATE == invokedMethod.getName()) {
-      return getValue();
+    if (GET_VIEW_HANDLER == methodName) {
+      return this;
     }
 
     return null;
