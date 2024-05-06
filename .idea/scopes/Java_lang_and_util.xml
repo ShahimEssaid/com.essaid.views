@@ -1,3 +1,0 @@
-<component name="DependencyValidationManager">
-  <scope name="Java lang and util" pattern="lib:java.util.*||lib:java.lang.ref.*||lib:java.lang.invoke.*||lib:java.lang.module.*||lib:java.lang.reflect.*||lib:java.lang.runtime.*||lib:java.lang.constant.*||lib:java.lang.*||lib:java.lang.annotation.*" />
-</component>
