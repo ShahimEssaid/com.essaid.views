@@ -3,7 +3,7 @@ package trash;
 import com.essaid.views.View;
 import com.essaid.views.internal.ViewHandler;
 import com.essaid.views.internal.ViewsManagerInternal;
-import com.essaid.views.internal.ViewsSessionInternal;
+import com.essaid.views.session.ViewsSessionInternal;
 import com.essaid.views.proxy.impl.request.RequestType;
 import com.essaid.views.proxy.internal.Request;
 import com.essaid.views.proxy.internal.RequestHandler;

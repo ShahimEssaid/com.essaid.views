@@ -1,21 +1,29 @@
-package com.essaid.views.proxy.impl;
+package com.essaid.views.session.impl;
 
 import com.essaid.views.View;
-import com.essaid.views.internal.impl.AbstractViewsSession;
+import com.essaid.views.adapter.AdaptRequest;
+import com.essaid.views.value.Value;
 import com.essaid.views.internal.ViewsManagerInternal;
+import com.essaid.views.proxy.impl.ViewHandlerImpl;
 import com.essaid.views.proxy.internal.Request;
-import com.essaid.views.internal.Value;
+import com.essaid.views.proxy.internal.RequestHandler;
 import com.essaid.views.proxy.internal.StateKeys;
 import java.lang.constant.Constable;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 import java.util.Collection;
 import java.util.Map;
+import java.util.Objects;
+import java.util.Optional;
+import java.util.concurrent.ConcurrentHashMap;
 
 
 public class ViewsSessionImpl extends AbstractViewsSession {
 
+
+  private final ConcurrentHashMap<Method, RequestHandler> requestHandlers = new ConcurrentHashMap<>();
 
   public ViewsSessionImpl(ViewsManagerInternal flexModel) {
     super(flexModel);
@@ -161,11 +169,12 @@ public class ViewsSessionImpl extends AbstractViewsSession {
     if (state == null) {
       state = createState();
     }
-    ProxyViewHandler viewHandler = new ProxyViewHandler(viewType,  allInterfaces, state);
+    ViewHandlerImpl viewHandler = new ViewHandlerImpl(viewType, allInterfaces, state);
     return (T) Proxy.newProxyInstance(viewType.getClassLoader(), allInterfaces, viewHandler);
   }
 
-  @Override
+
+//  @Override
   public <T> T adapt(Object object, Class<T> viewType, Class<?>... customDefaults) {
     if (object == null) {
       return null;
@@ -177,17 +186,16 @@ public class ViewsSessionImpl extends AbstractViewsSession {
     }
 
     if (viewType.isPrimitive()) {
-      throw new IllegalArgumentException("Can't adapt to primitives type: "+viewType);
+      throw new IllegalArgumentException("Can't adapt to primitives type: " + viewType);
     }
 
     // is this a model object?
     Object externalValue = null;
     Value value = null;
 
-    if(object instanceof View){
-      value = ((View)object)._getViewHandler().getValue();
+    if (object instanceof View) {
+      value = ((View) object).__viewHandler().getValue();
     }
-
 
     if (value != null) {
       if (value.getSession() != this) {
@@ -229,14 +237,12 @@ public class ViewsSessionImpl extends AbstractViewsSession {
           }
         }
       }
-
-
     }
 
     // wrap it as an external with a new state
     // we assume the interface is a view interface, and create a view
     View view = (View) createView(viewType, null, customDefaults);
-    view._getViewHandler().getValue().setValue(StateKeys.EXTERNAL_VALUE, object);
+    view.__viewHandler().getValue().setValue(StateKeys.EXTERNAL_VALUE, object);
     return (T) view;
 
   }
@@ -310,14 +316,14 @@ public class ViewsSessionImpl extends AbstractViewsSession {
 
   @Override
   public View setFeature(Value state, String featureName, Object value, Request request) {
-    if(value == null){
+    if (value == null) {
       return state.unsetFeatureValue(featureName);
     }
 
     View internal = null;
-    if(value instanceof View){
+    if (value instanceof View) {
       internal = (View) value;
-      if(internal._getViewHandler().getValue().getSession() != this){
+      if (internal.__viewHandler().getValue().getSession() != this) {
         throw new IllegalArgumentException("Can't set cross-sessions. Set request: " + request);
       }
     } else {
@@ -334,4 +340,25 @@ public class ViewsSessionImpl extends AbstractViewsSession {
   }
 
 
+
+
+  protected RequestHandler getRequestHandler(Request request) {
+    Method invokedMethod = request.getInvokedMethod();
+    Class<? extends View> viewClass = request.getView().getClass();
+
+    Method method = getManager().getClientMethod(request);
+
+    return requestHandlers.computeIfAbsent(method,
+        m -> findRequestHandler(request));
+  }
+
+  private RequestHandler findRequestHandler(Request request) {
+    Optional<RequestHandler> first = getManager().getConfig().getHandlerFactories().stream()
+        .map(f -> f.getHandler(request)).filter(Objects::nonNull).findFirst();
+
+    if (!first.isPresent()) {
+      throw new IllegalArgumentException("Can't find request handler for request: " + request);
+    }
+    return first.get();
+  }
 }

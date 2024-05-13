@@ -1,5 +1,6 @@
 package com.essaid.views;
 
+import com.essaid.views.session.ViewsSession;
 import com.essaid.views.proxy.Config;
 import com.essaid.views.internal.ViewsManagerInternal;
 

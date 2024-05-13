@@ -14,6 +14,6 @@ public class ToStringHandlerDefault extends AbstractRequestHandler {
 
     request.getResponse().setValue(
         request.getInvokedMethod().getReturnType().getName() + "@" + System.identityHashCode(
-            request.getView()) + "@" + System.identityHashCode(request.getView()._getViewHandler().getValue()));
+            request.getView()) + "@" + System.identityHashCode(request.getView().__viewHandler().getValue()));
   }
 }

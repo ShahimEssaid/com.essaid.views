@@ -29,12 +29,17 @@ repositories {
 }
 
 dependencies {
+    implementation(libs.slf4j.api);
+
 
 //    compileOnly(libs.lombok)
 //    annotationProcessor(libs.lombok)
     // Use JUnit Jupiter for testing.
     testImplementation(libs.junit.jupiter)
     testImplementation(libs.assertj)
+    testImplementation(libs.logback.classic)
+//    testImplementation(libs.jansi)
+
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
 
@@ -63,7 +68,7 @@ publishing {
 tasks.named<Test>("test") {
     // Use JUnit Platform for unit tests.
     useJUnitPlatform()
-    exclude("**")
+//    exclude("**")
 }
 
 

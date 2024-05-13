@@ -32,12 +32,14 @@ public class GetRequestHandler extends FeatureRequestHandler {
 
   @Override
   public void handle(Request request) {
-    View feature = session.getFeature(request.getView()._getViewHandler().getValue(),
+    View feature = session.getFeature(request.getView().__viewHandler().getValue(),
         featureName, request);
     if (feature == null) {
       request.getResponse().setValue(defaultValue);
     } else {
-      Object adapted = session.adapt(feature, request.getInvokedMethod().getReturnType());
+      Object adapted = session.adapt(feature, request.getInvokedMethod().getReturnType(),
+          request.getInvokedMethod().getReturnType(),
+          feature.__viewHandler());
       request.getResponse().setValue(adapted);
     }
   }

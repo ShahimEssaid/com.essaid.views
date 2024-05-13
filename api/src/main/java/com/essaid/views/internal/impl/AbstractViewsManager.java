@@ -1,10 +1,10 @@
 package com.essaid.views.internal.impl;
 
 import com.essaid.views.View;
-import com.essaid.views.ViewsSession;
+import com.essaid.views.session.ViewsSession;
 import com.essaid.views.internal.ViewsManagerInternal;
+import com.essaid.views.session.impl.ViewsSessionImpl;
 import com.essaid.views.proxy.Config;
-import com.essaid.views.proxy.impl.ViewsSessionImpl;
 import com.essaid.views.proxy.internal.ImplUtils;
 import com.essaid.views.proxy.internal.Request;
 import java.lang.reflect.Method;

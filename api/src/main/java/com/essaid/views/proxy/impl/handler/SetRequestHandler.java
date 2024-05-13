@@ -15,7 +15,7 @@ public class SetRequestHandler extends FeatureRequestHandler {
   public void handle(Request request) {
     Object setValue = request.getInvokedArgs()[0];
 
-    session.setFeature(request.getView()._getViewHandler().getValue(), featureName, setValue, request);
+    session.setFeature(request.getView().__viewHandler().getValue(), featureName, setValue, request);
 
 
 //    if (value != null) {

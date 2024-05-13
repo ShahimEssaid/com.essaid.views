@@ -3,7 +3,7 @@ package trash;
 import com.essaid.views.proxy.impl.request.RequestType;
 import com.essaid.views.proxy.internal.RequestHandler;
 import com.essaid.views.proxy.internal.RequestHandlerFactory;
-import com.essaid.views.internal.ViewsSessionInternal;
+import com.essaid.views.session.ViewsSessionInternal;
 import com.essaid.views.proxy.internal.Request;
 import java.lang.reflect.Method;
 import java.util.WeakHashMap;

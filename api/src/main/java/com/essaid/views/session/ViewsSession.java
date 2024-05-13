@@ -1,6 +1,6 @@
-package com.essaid.views;
+package com.essaid.views.session;
 
-import com.essaid.views.internal.Value;
+import com.essaid.views.value.Value;
 
 public interface ViewsSession {
 
@@ -16,5 +16,11 @@ public interface ViewsSession {
    */
   <T> T createView(Class<T> viewType, Value state, Class<?>... customDefaults);
 
+
+
+
+  default ViewsSessionInternal internal(){
+    return (ViewsSessionInternal) this;
+  }
 
 }

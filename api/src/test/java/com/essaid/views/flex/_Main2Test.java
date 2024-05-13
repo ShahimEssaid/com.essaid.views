@@ -1,13 +1,15 @@
 package com.essaid.views.flex;
 
-import com.essaid.views.proxy.Configs;
+import com.essaid.views.Configs;
 import com.essaid.views.ViewsManager;
-import com.essaid.views.internal.ViewsSessionInternal;
+import com.essaid.views.session.ViewsSessionInternal;
 import lombok.Getter;
 import lombok.Setter;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.*;
 
+@Disabled
 public class _Main2Test {
 
   public static interface Shape {

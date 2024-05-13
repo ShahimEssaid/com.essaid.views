@@ -2,21 +2,21 @@ package com.essaid.views.proxy.impl;
 
 import com.essaid.views.View;
 import com.essaid.views.internal.impl.AbstractViewHandler;
-import com.essaid.views.internal.Value;
+import com.essaid.views.value.Value;
 import com.essaid.views.proxy.impl.request.RequestImpl;
 import com.essaid.views.proxy.internal.Request;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 
-public class ProxyViewHandler extends AbstractViewHandler implements InvocationHandler {
+public class ViewHandlerImpl extends AbstractViewHandler implements InvocationHandler {
 
 //  private static final String GET_TYPE = "__getType";
 //  private static final String GET_INTERFACES = "__getInterfaces";
-  private static final String GET_VIEW_HANDLER = "_getViewHandler";
+  private static final String GET_VIEW_HANDLER = "__viewHandler";
   private static final String AS = "__as";
 
 
-  public ProxyViewHandler(Class<?> viewType, Class<?>[] interfaces, Value state) {
+  public ViewHandlerImpl(Class<?> viewType, Class<?>[] interfaces, Value state) {
     super(viewType, interfaces, state);
   }
 
@@ -57,6 +57,11 @@ public class ProxyViewHandler extends AbstractViewHandler implements InvocationH
 
   @Override
   public <T> T adaptTo(Class<T> clazz, Class<?>... defaults) {
+    return null;
+  }
+
+  @Override
+  public View getView() {
     return null;
   }
 }

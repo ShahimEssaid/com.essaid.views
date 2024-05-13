@@ -6,11 +6,18 @@ junit-jupiter = "5.10.0"
 lombok = "1.18.28"
 assertj = "3.24.2"
 whistle = "dev-SNAPSHOT"
+slf4j-api = "2.0.13"
+logback-classic = "1.5.6"
+jansi = "1.17"
 
 [libraries]
 junit-jupiter = { module = "org.junit.jupiter:junit-jupiter", version.ref = "junit-jupiter" }
 lombok = { module = "org.projectlombok:lombok", version.ref = "lombok" }
 assertj = { module = "org.assertj:assertj-core", version.ref = "assertj" }
+slf4j-api = {module = "org.slf4j:slf4j-api", version.ref = "slf4j-api"}
+logback-classic = {module = "ch.qos.logback:logback-classic", version.ref = "logback-classic"}
+jansi = {module = "org.fusesource.jansi:jansi", version.ref = "jansi"}
+
 
 # The Whistle build
 whistle = { module = "com.essaid.groupId.com.google.cloud.verticals.foundations.dataharmonization:runtime", version.ref = "whistle" }

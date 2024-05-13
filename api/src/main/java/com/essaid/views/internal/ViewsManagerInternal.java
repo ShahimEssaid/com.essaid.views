@@ -1,8 +1,10 @@
 package com.essaid.views.internal;
 
 import com.essaid.views.ViewsManager;
+import com.essaid.views.adapter.Adapter;
 import com.essaid.views.proxy.internal.Request;
 import java.lang.reflect.Method;
+import java.util.List;
 
 public interface ViewsManagerInternal extends ViewsManager {
 
@@ -15,5 +17,7 @@ public interface ViewsManagerInternal extends ViewsManager {
 //  void process(ViewRequest request);
 
   Class<?>[] getInterfaces(Class<?> view, Class<?>... viewDefaults);
+
+  List<Adapter> getAdapters();
 
 }

@@ -1,6 +1,8 @@
-package com.essaid.views.proxy;
+package com.essaid.views;
 
-import com.essaid.views.ViewsManager;
+import com.essaid.views.adapter.impl.IsInstanceOfAdapter;
+import com.essaid.views.adapter.impl.ToViewsAdapter;
+import com.essaid.views.proxy.Config;
 import com.essaid.views.proxy.impl.ViewsManagerImpl;
 import com.essaid.views.proxy.impl.handler.factory.DefaultsHandlerFactory;
 import com.essaid.views.proxy.impl.handler.factory.GetHandlerFactory;
@@ -64,5 +66,10 @@ public class Configs {
     Config config = new Config();
     applyDefaults2(config);
     return new ViewsManagerImpl(config);
+  }
+
+  public static void addDefaultAdapters(Config config){
+    config.addAdapters(new IsInstanceOfAdapter());
+    config.addAdapters(new ToViewsAdapter());
   }
 }

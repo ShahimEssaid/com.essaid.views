@@ -2,9 +2,8 @@ package com.essaid.views.flex;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import com.essaid.views.View;
-import com.essaid.views.proxy.Configs;
-import com.essaid.views.ViewsSession;
+import com.essaid.views.Configs;
+import com.essaid.views.session.ViewsSession;
 import com.essaid.views.ViewsManager;
 import hold.MapTransformer;
 import com.essaid.views.proxy.impl.DefaultMapTransformer;
@@ -16,18 +15,20 @@ import com.essaid.views.flex.testmodel.Primitives;
 import com.essaid.views.flex.testmodel.Old_Tire;
 import java.util.List;
 import java.util.Map;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
+@Disabled
 public class MainTests {
 
   @Test
   void tireBrandNameTest() {
     ViewsManager manager = Configs.createDefaultModelManager();
-    ViewsSession viewsSession = manager.createSession();
-    PhenoType phenoType = viewsSession.createView(PhenoType.class, null);
+    ViewsSession session = manager.createSession();
+    PhenoType phenoType = session.createView(PhenoType.class, null);
 
 
-    Old_Tire tire = viewsSession.createView(Old_Tire.class, null );
+    Old_Tire tire = session.createView(Old_Tire.class, null );
 //    PhenoTypeCombinded phenoTypeCombinded = tire._as(PhenoTypeCombinded.class);
 
     assertThat(tire).isNotNull();
@@ -81,8 +82,8 @@ public class MainTests {
   @Test
   void tireSpareTest() {
     ViewsManager manager = Configs.createDefaultModelManager();
-    ViewsSession viewsSession = manager.createSession();
-    Old_Tire tire = viewsSession.createView(Old_Tire.class, null );
+    ViewsSession session = manager.createSession();
+    Old_Tire tire = session.createView(Old_Tire.class, null );
 
     assertThat(tire.isSpare()).isFalse();
     tire.setSpare(true);
@@ -96,8 +97,8 @@ public class MainTests {
   @Test
   void primitives() {
     ViewsManager manager = Configs.createDefaultModelManager();
-    ViewsSession viewsSession = manager.createSession();
-    Primitives p = viewsSession.createView(Primitives.class, null);
+    ViewsSession session = manager.createSession();
+    Primitives p = session.createView(Primitives.class, null);
 
     assertThat(p.getByte()).isEqualTo((byte) 0);
     assertThat(p.getByte_default((byte) 1)).isEqualTo((byte) 1);
@@ -108,8 +109,8 @@ public class MainTests {
   @Test
   void careSpareTire() {
     ViewsManager manager = Configs.createDefaultModelManager();
-    ViewsSession viewsSession = manager.createSession();
-    Old_Car car = viewsSession.createView(Old_Car.class, null);
+    ViewsSession session = manager.createSession();
+    Old_Car car = session.createView(Old_Car.class, null);
 
     assertThat(car.getSpareTire()).isNull();
     Old_Tire spare = car.getSpareTire_create();

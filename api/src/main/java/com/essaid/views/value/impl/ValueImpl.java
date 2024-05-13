@@ -1,10 +1,9 @@
-package com.essaid.views.proxy.impl;
+package com.essaid.views.value.impl;
 
 import com.essaid.views.View;
 import com.essaid.views.internal.FeatureHandler;
-import com.essaid.views.internal.Value;
-import com.essaid.views.internal.ViewsSessionInternal;
-import com.essaid.views.proxy.internal.StateKeys;
+import com.essaid.views.session.ViewsSessionInternal;
+import com.essaid.views.value.Value;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
@@ -12,6 +11,8 @@ import java.util.stream.Collectors;
 public class ValueImpl extends ConcurrentHashMap<Object, Object> implements Value {
 
   private final ViewsSessionInternal session;
+
+  private Object value;
 
   public ValueImpl(ViewsSessionInternal session) {
     this.session = session;
@@ -53,10 +54,31 @@ public class ValueImpl extends ConcurrentHashMap<Object, Object> implements Valu
   }
 
   @Override
+  public boolean hasFeatures() {
+    return false;
+  }
+
+  @Override
   public Set<String> getFeatureNames() {
 
     return keySet().stream().filter(k -> k instanceof String).map(k -> (String) k)
         .collect(Collectors.toSet());
+  }
+
+  @Override
+  public Object getValue() {
+    return value;
+  }
+
+  @Override
+  public Object setValue(Object value) {
+    this.value = value;
+    return this;
+  }
+
+  @Override
+  public boolean hasValue() {
+    return value != null;
   }
 
   @Override
@@ -97,20 +119,6 @@ public class ValueImpl extends ConcurrentHashMap<Object, Object> implements Valu
     return session;
   }
 
-  @Override
-  public boolean isNullOrEmpty() {
-    return getValue(StateKeys.EXTERNAL_VALUE) == null && isEmpty();
-  }
-
-  @Override
-  public boolean isSimple() {
-    return false;
-  }
-
-  @Override
-  public boolean isComplex() {
-    return false;
-  }
 
   @Override
   public Object getAnnotation(Object key) {

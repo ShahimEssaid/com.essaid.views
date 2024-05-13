@@ -1,6 +1,6 @@
 package com.essaid.views.internal.impl;
 
-import com.essaid.views.internal.Value;
+import com.essaid.views.value.Value;
 import com.essaid.views.internal.ViewHandler;
 
 public abstract  class AbstractViewHandler implements ViewHandler {

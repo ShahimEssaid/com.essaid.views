@@ -1,9 +1,14 @@
-package com.essaid.views.internal;
+package com.essaid.views.value;
 
 import com.essaid.views.View;
+import com.essaid.views.internal.Annotatable;
+import com.essaid.views.internal.FeatureHandler;
+import com.essaid.views.session.ViewsSessionInternal;
 import java.util.Set;
 
 public interface Value extends Annotatable {
+
+  ViewsSessionInternal getSession();
 
   FeatureHandler getFeature(String featureName, View owningView);
 
@@ -13,7 +18,15 @@ public interface Value extends Annotatable {
 
   boolean hasFeature(String featureName);
 
+  boolean hasFeatures();
+
   Set<String> getFeatureNames();
+
+  Object getValue();
+
+  Object setValue(Object value);
+
+  boolean hasValue();
 
 
   @Deprecated
@@ -37,12 +50,5 @@ public interface Value extends Annotatable {
   @Deprecated
   Set<Object> getValueKeys();
 
-  ViewsSessionInternal getSession();
-
-  boolean isNullOrEmpty();
-
-  boolean isSimple();
-
-  boolean isComplex();
 
 }

@@ -2,7 +2,7 @@ package com.essaid.views.proxy.impl;
 
 import hold.MapFactory;
 import com.essaid.views.View;
-import com.essaid.views.internal.Value;
+import com.essaid.views.value.Value;
 import java.beans.BeanInfo;
 import java.beans.IntrospectionException;
 import java.beans.Introspector;
@@ -61,7 +61,7 @@ public class ToMap {
     // for View values
     if (object instanceof View) {
       Map<String, Object> map = mapFactory.createMap(object);
-      Value state = ((View) object)._getViewHandler().getValue();
+      Value state = ((View) object).__viewHandler().getValue();
       for (String featureName : state.getFeatureNames().stream().sorted().toList()) {
         Object featureValue = state.getFeatureValue(featureName);
         Object objectValue = getObjectValue(featureValue);

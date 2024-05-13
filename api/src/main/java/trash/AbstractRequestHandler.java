@@ -2,7 +2,7 @@ package trash;
 
 import com.essaid.views.proxy.impl.request.RequestType;
 import com.essaid.views.proxy.internal.RequestHandler;
-import com.essaid.views.internal.ViewsSessionInternal;
+import com.essaid.views.session.ViewsSessionInternal;
 import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
@@ -21,12 +21,12 @@ public abstract class AbstractRequestHandler implements RequestHandler {
 
 
   public AbstractRequestHandler(String featureName, Method method, RequestType requestType,
-      Object defaultValue, ViewsSessionInternal sessionInternal) {
+      Object defaultValue, ViewsSessionInternal viewsSessionInternal) {
     this.method = method;
     this.featureName = featureName;
     this.requestType = requestType;
     this.defaultValue = defaultValue;
-    this.session = sessionInternal;
+    this.session = viewsSessionInternal;
   }
 
 //  protected static Object setFeature(String featureName, Object valueToSet,
